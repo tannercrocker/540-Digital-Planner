@@ -202,9 +202,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ConnectionStrings.config">
-      <SubType>Designer</SubType>
-    </Content>
     <EntityDeploy Include="Models\PlannerModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PlannerModels.Designer.cs</LastGenOutput>
@@ -212,6 +209,7 @@
     <Content Include="Models\PlannerModels.edmx.diagram">
       <DependentUpon>PlannerModels.edmx</DependentUpon>
     </Content>
+    <Content Include="ConnectionString.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
