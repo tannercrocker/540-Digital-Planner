@@ -155,28 +155,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>DigitalPlannerModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DigitalPlannerModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalPlannerModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DigitalPlannerModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalPlannerModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DigitalPlannerModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalPlannerModels.edmx</DependentUpon>
+      <DependentUpon>PlannerModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>DigitalPlannerModels.tt</DependentUpon>
+      <DependentUpon>PlannerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlannerModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlannerModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlannerModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlannerModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlannerModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlannerModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>DigitalPlannerModels.tt</DependentUpon>
+      <DependentUpon>PlannerModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -187,28 +187,30 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DigitalPlannerModels.Context.tt">
+    <Content Include="Models\PlannerModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigitalPlannerModels.edmx</DependentUpon>
-      <LastGenOutput>DigitalPlannerModels.Context.cs</LastGenOutput>
+      <DependentUpon>PlannerModels.edmx</DependentUpon>
+      <LastGenOutput>PlannerModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DigitalPlannerModels.tt">
+    <Content Include="Models\PlannerModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigitalPlannerModels.edmx</DependentUpon>
-      <LastGenOutput>DigitalPlannerModels.cs</LastGenOutput>
+      <DependentUpon>PlannerModels.edmx</DependentUpon>
+      <LastGenOutput>PlannerModels.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ConnectionStrings.config" />
-    <EntityDeploy Include="Models\DigitalPlannerModels.edmx">
+    <Content Include="ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <EntityDeploy Include="Models\PlannerModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DigitalPlannerModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlannerModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DigitalPlannerModels.edmx.diagram">
-      <DependentUpon>DigitalPlannerModels.edmx</DependentUpon>
+    <Content Include="Models\PlannerModels.edmx.diagram">
+      <DependentUpon>PlannerModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -221,7 +223,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

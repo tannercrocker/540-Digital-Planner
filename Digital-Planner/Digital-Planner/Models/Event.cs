@@ -14,16 +14,15 @@ namespace Digital_Planner.Models
     
     public partial class Event
     {
-        public Nullable<System.DateTime> Duration { get; set; }
+        public Nullable<System.TimeSpan> Duration { get; set; }
         public string Title { get; set; }
         public string Location { get; set; }
-        public int Categories { get; set; }
         public string Description { get; set; }
         public int Priority { get; set; }
-        public string User { get; set; }
-        public int ID { get; set; }
+        public int EventID { get; set; }
+        public Nullable<System.TimeSpan> BufferTime { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Digital_Planner.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class calenderEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public calenderEntities()
+            : base("name=calenderEntities")
         {
         }
     
