@@ -18,7 +18,7 @@ namespace Digital_Planner.Controllers
         // GET: Events
         public ActionResult Index()
         {
-            var events = db.Events.Include(e => e.Category).Include(e => e.User);
+            var events = db.Events;
             return View(events.ToList());
         }
 
