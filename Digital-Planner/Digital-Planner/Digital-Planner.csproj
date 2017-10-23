@@ -263,6 +263,7 @@
     <Content Include="Views\Days\Details.cshtml" />
     <Content Include="Views\Days\Edit.cshtml" />
     <Content Include="Views\Days\Index.cshtml" />
+    <Content Include="Views\Users\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
