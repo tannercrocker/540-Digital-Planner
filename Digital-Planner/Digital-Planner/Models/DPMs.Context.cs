@@ -28,5 +28,6 @@ namespace Digital_Planner.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Day> Days { get; set; }
     }
 }

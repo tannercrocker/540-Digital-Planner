@@ -19,6 +19,7 @@ namespace Digital_Planner.Models
         {
             this.Categories = new HashSet<Category>();
             this.Events = new HashSet<Event>();
+            this.Days = new HashSet<Day>();
         }
     
         public int ID { get; set; }
@@ -31,5 +32,7 @@ namespace Digital_Planner.Models
         public virtual ICollection<Category> Categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Day> Days { get; set; }
     }
 }
