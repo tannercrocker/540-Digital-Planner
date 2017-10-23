@@ -20,6 +20,26 @@ namespace Digital_Planner.Controllers
             return View(db.Users.ToList());
         }
 
+        // GET: Users/Schedule/5
+        public ActionResult Schedule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Require logged in user
+            //Get logged in user's events
+            User user = db.Users.Find(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(user);
+
+        }
+
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
@@ -110,6 +130,14 @@ namespace Digital_Planner.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
+            foreach (var category in user.Categories.ToList())
+            {
+                db.Categories.Remove(category);
+            }
+            foreach (var user_event in user.Events.ToList())
+            {
+                db.Events.Remove(user_event);
+            }
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");

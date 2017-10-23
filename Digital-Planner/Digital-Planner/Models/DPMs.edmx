@@ -29,10 +29,11 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CompleteBy" Type="datetime" Nullable="false" />
+          <Property Name="OccursAt" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
           <Property Name="BufferTime" Type="time" Precision="7" />
           <Property Name="Priority" Type="int" />
+          <Property Name="CompleteBy" Type="datetime" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -137,7 +138,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CompleteBy" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompleteBy" Type="DateTime" Precision="3" />
           <Property Name="Duration" Type="Time" Nullable="false" Precision="7" />
           <Property Name="BufferTime" Type="Time" Precision="7" />
           <Property Name="Priority" Type="Int32" />
@@ -146,6 +147,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Event_Category" FromRole="Event" ToRole="Category" />
           <NavigationProperty Name="User" Relationship="Self.FK_Event_User" FromRole="Event" ToRole="User" />
+          <Property Name="OccursAt" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -259,6 +261,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="calendarModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="OccursAt" ColumnName="OccursAt" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CompleteBy" ColumnName="CompleteBy" />
