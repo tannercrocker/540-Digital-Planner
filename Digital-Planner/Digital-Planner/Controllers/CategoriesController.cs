@@ -12,12 +12,12 @@ namespace Digital_Planner.Controllers
 {
     public class CategoriesController : Controller
     {
-        private calenderEntities db = new calenderEntities();
+        private calendarEntities db = new calendarEntities();
 
         // GET: Categories
         public ActionResult Index()
         {
-            var categories = db.Categories.Include(c => c.Event);
+            var categories = db.Categories.Include(c => c.User);
             return View(categories.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace Digital_Planner.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Events, "EventID", "Title");
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,Description")] Category category)
+        public ActionResult Create([Bind(Include = "ID,Description,UserID")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Digital_Planner.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Events, "EventID", "Title", category.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", category.UserID);
             return View(category);
         }
 
@@ -73,7 +73,7 @@ namespace Digital_Planner.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Events, "EventID", "Title", category.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", category.UserID);
             return View(category);
         }
 
@@ -82,7 +82,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,Description")] Category category)
+        public ActionResult Edit([Bind(Include = "ID,Description,UserID")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Digital_Planner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Events, "EventID", "Title", category.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", category.UserID);
             return View(category);
         }
 

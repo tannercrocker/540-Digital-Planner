@@ -12,22 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.DisplayNameFor(model => model.CompleteBy)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BufferTime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Priority)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BufferTime)
+            @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Category.Description)
@@ -41,22 +41,22 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Location)
+            @Html.DisplayFor(modelItem => item.CompleteBy)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BufferTime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Priority)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BufferTime)
+            @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Category.Description)
@@ -65,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.User.FirstName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

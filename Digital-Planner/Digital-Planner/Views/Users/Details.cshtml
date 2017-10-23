@@ -42,17 +42,9 @@
             @Html.DisplayFor(model => model.Password)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.Title)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

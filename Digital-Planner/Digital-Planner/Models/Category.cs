@@ -14,9 +14,18 @@ namespace Digital_Planner.Models
     
     public partial class Category
     {
-        public int CategoryID { get; set; }
-        public string Description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Category()
+        {
+            this.Events = new HashSet<Event>();
+        }
     
-        public virtual Event Event { get; set; }
+        public int ID { get; set; }
+        public string Description { get; set; }
+        public int UserID { get; set; }
+    
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

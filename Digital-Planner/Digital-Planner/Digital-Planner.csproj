@@ -158,28 +158,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>PlannerModels.tt</DependentUpon>
+      <DependentUpon>DPMs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DPMs.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DPMs.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DPMs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DPMs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DPMs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DPMs.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>PlannerModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlannerModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlannerModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlannerModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlannerModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlannerModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlannerModels.edmx</DependentUpon>
+      <DependentUpon>DPMs.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>PlannerModels.tt</DependentUpon>
+      <DependentUpon>DPMs.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,29 +190,29 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\PlannerModels.Context.tt">
+    <Content Include="Models\DPMs.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlannerModels.edmx</DependentUpon>
-      <LastGenOutput>PlannerModels.Context.cs</LastGenOutput>
+      <DependentUpon>DPMs.edmx</DependentUpon>
+      <LastGenOutput>DPMs.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PlannerModels.tt">
+    <Content Include="Models\DPMs.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlannerModels.edmx</DependentUpon>
-      <LastGenOutput>PlannerModels.cs</LastGenOutput>
+      <DependentUpon>DPMs.edmx</DependentUpon>
+      <LastGenOutput>DPMs.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\PlannerModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlannerModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\PlannerModels.edmx.diagram">
-      <DependentUpon>PlannerModels.edmx</DependentUpon>
-    </Content>
     <Content Include="ConnectionStrings.config" />
+    <EntityDeploy Include="Models\DPMs.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DPMs.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DPMs.edmx.diagram">
+      <DependentUpon>DPMs.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -239,7 +239,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Users\Signup.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
@@ -254,7 +254,6 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
-    <Content Include="Views\Users\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

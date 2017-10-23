@@ -12,13 +12,12 @@ namespace Digital_Planner.Controllers
 {
     public class UsersController : Controller
     {
-        private calenderEntities db = new calenderEntities();
+        private calendarEntities db = new calendarEntities();
 
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.Event);
-            return View(users.ToList());
+            return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -39,7 +38,6 @@ namespace Digital_Planner.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Events, "EventID", "Title");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,Password,UserID")] User user)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace Digital_Planner.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.Events, "EventID", "Title", user.UserID);
             return View(user);
         }
 
@@ -73,7 +70,6 @@ namespace Digital_Planner.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.Events, "EventID", "Title", user.UserID);
             return View(user);
         }
 
@@ -82,7 +78,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FirstName,LastName,Email,Password,UserID")] User user)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace Digital_Planner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.Events, "EventID", "Title", user.UserID);
             return View(user);
         }
 

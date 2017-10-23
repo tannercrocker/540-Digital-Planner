@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="628b312484164bd48deab4569fd524c5" Name="Diagram1">
+        <EntityTypeShape EntityType="calendarModel.Category" Width="1.5" PointX="4" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="calendarModel.Event" Width="1.5" PointX="6.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="calendarModel.User" Width="1.5" PointX="1.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="calendarModel.FK_Category_User" ManuallyRouted="false" />
+        <AssociationConnector Association="calendarModel.FK_Event_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="calendarModel.FK_Event_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

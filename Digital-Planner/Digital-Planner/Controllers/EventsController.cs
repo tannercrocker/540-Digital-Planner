@@ -12,13 +12,12 @@ namespace Digital_Planner.Controllers
 {
     public class EventsController : Controller
     {
-        private calenderEntities db = new calenderEntities();
+        private calendarEntities db = new calendarEntities();
 
-        
         // GET: Events
         public ActionResult Index()
         {
-            var events = db.Events;
+            var events = db.Events.Include(e => e.Category).Include(e => e.User);
             return View(events.ToList());
         }
 
@@ -40,8 +39,8 @@ namespace Digital_Planner.Controllers
         // GET: Events/Create
         public ActionResult Create()
         {
-            ViewBag.EventID = new SelectList(db.Categories, "CategoryID", "Description");
-            ViewBag.EventID = new SelectList(db.Users, "UserID", "FirstName");
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description");
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName");
             return View();
         }
 
@@ -50,7 +49,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Duration,Title,Location,Description,Priority,EventID,BufferTime")] Event @event)
+        public ActionResult Create([Bind(Include = "ID,Title,CompleteBy,Duration,BufferTime,Priority,Location,UserID,CategoryID")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -59,8 +58,8 @@ namespace Digital_Planner.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EventID = new SelectList(db.Categories, "CategoryID", "Description", @event.EventID);
-            ViewBag.EventID = new SelectList(db.Users, "UserID", "FirstName", @event.EventID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description", @event.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", @event.UserID);
             return View(@event);
         }
 
@@ -76,8 +75,8 @@ namespace Digital_Planner.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.EventID = new SelectList(db.Categories, "CategoryID", "Description", @event.EventID);
-            ViewBag.EventID = new SelectList(db.Users, "UserID", "FirstName", @event.EventID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description", @event.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", @event.UserID);
             return View(@event);
         }
 
@@ -86,7 +85,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Duration,Title,Location,Description,Priority,EventID,BufferTime")] Event @event)
+        public ActionResult Edit([Bind(Include = "ID,Title,CompleteBy,Duration,BufferTime,Priority,Location,UserID,CategoryID")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -94,8 +93,8 @@ namespace Digital_Planner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EventID = new SelectList(db.Categories, "CategoryID", "Description", @event.EventID);
-            ViewBag.EventID = new SelectList(db.Users, "UserID", "FirstName", @event.EventID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description", @event.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", @event.UserID);
             return View(@event);
         }
 

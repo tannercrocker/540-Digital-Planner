@@ -23,9 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Password)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event.Title)
-        </th>
         <th></th>
     </tr>
 
@@ -44,12 +41,9 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Event.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }
