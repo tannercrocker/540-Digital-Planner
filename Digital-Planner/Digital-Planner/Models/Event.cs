@@ -16,14 +16,14 @@ namespace Digital_Planner.Models
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        public Nullable<System.DateTime> CompleteBy { get; set; }
+        public System.DateTime OccursAt { get; set; }
         public System.TimeSpan Duration { get; set; }
         public Nullable<System.TimeSpan> BufferTime { get; set; }
         public Nullable<int> Priority { get; set; }
+        public Nullable<System.DateTime> CompleteBy { get; set; }
         public string Location { get; set; }
         public int UserID { get; set; }
         public int CategoryID { get; set; }
-        public System.DateTime OccursAt { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }

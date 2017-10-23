@@ -8,23 +8,24 @@
 
 <section id="day" class="table">
     <div id="columns"class="row">
-        <span class="col">cat</span>
-        <span class="col">time</span>
-        <span class="col">cmp?</span>
-        <span class="col">title</span>
-        <span class="col">dur</span>
-        <span class="col">due</span>
+        <span class="col">Category</span>
+        <span class="col">Time</span>
+        <span class="col">Title</span>
+        <span class="col">Duration</span>
+        <span class="col">Due</span>
     </div>
     <section class="events">
         @{
             //Events grouped by category
             foreach (var evt in Model.Events)
             {
-                <section class="col">@evt.Category.Description</section>
-                <section class="col">@evt.OccursAt</section>
-                <section class="col">@evt.Title</section>
-                <section class="col">@evt.Duration</section>
-                <section class="col">@evt.CompleteBy</section>
+                <div class="row">
+                    <span class="col">@evt.Category.Description</span>
+                    <span class="col">@evt.OccursAt</span>
+                    <span class="col">@evt.Title</span>
+                    <span class="col">@evt.Duration</span>
+                    <span class="col">@evt.CompleteBy</span>
+                </div>
             }
         }
     </section>

@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompleteBy)
+            @Html.DisplayNameFor(model => model.OccursAt)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Duration)
@@ -25,6 +25,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompleteBy)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Location)
@@ -44,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CompleteBy)
+            @Html.DisplayFor(modelItem => item.OccursAt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Duration)
@@ -54,6 +57,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompleteBy)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Location)

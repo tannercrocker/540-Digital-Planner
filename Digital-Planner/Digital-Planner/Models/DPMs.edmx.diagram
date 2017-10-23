@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="628b312484164bd48deab4569fd524c5" Name="Diagram1">
-        <EntityTypeShape EntityType="calendarModel.Category" Width="1.5" PointX="4.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="calendarModel.Event" Width="1.5" PointX="7" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="calendarModel.User" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
+      <Diagram DiagramId="6fae4612235a4c87964f76c2dc78767c" Name="Diagram1">
+        <EntityTypeShape EntityType="calendarModel.Category" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="calendarModel.Day" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="calendarModel.Event" Width="1.5" PointX="7.625" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="calendarModel.User" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="calendarModel.FK_Category_User" ManuallyRouted="false" />
         <AssociationConnector Association="calendarModel.FK_Event_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="calendarModel.FK_Day_User" ManuallyRouted="false" />
         <AssociationConnector Association="calendarModel.FK_Event_User" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="calendarModel.Day" Width="1.5" PointX="2.625" PointY="1.625" />
-        <AssociationConnector Association="calendarModel.FK_Day_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
