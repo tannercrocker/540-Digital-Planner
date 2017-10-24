@@ -11,18 +11,21 @@
             document.getElementById("month").style.display = 'none'
             if ("month_button".match(showID)) {
                 document.getElementById("month").style.display = 'block'
+                document.getElementById("schedule_text").innerHTML = 'this month'
             } else if ("week_button".match(showID)) {
                 document.getElementById("week").style.display = 'block'
+                document.getElementById("schedule_text").innerHTML = 'this week'
             } else {
                 document.getElementById("day").style.display = 'block'
+                document.getElementById("schedule_text").innerHTML = 'Today'
             }
         }
     }
 </script>
 
-<h2>Schedule</h2>
+<h2>Schedule for <span id="schedule_text">Today</span></h2>
 <div class="row">
-    <button id="day_button" class="btn" onclick="toggle_schedule(this.id)">Day</button>
+    <button id="day_button" class="btn" onclick="toggle_schedule(this.id)">Today</button>
     <button id="week_button" class="btn" onclick="toggle_schedule(this.id)">Week</button>
     <button id="month_button" class="btn" onclick="toggle_schedule(this.id)">Month</button>
 </div>
@@ -39,7 +42,7 @@
         <section class="events">
             @{
                 //Events grouped by category
-                foreach (var evt in Model.Events)
+                foreach (var evt in Model.Events.OrderBy(e => e.CategoryID).OrderBy(e => e.Priority))
                 {
                     <div class="row">
                         <span class="col col-md-2">@evt.Category.Description</span>
