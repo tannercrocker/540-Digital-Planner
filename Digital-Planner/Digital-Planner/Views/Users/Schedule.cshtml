@@ -3,34 +3,64 @@
 @{
     ViewBag.Title = "Schedule";
 }
-
-<h2>Schedule</h2>
-
-<div id="day" class="table">
-    <div id="columns"class="row">
-        <span class="col col-md-2">Category</span>
-        <span class="col col-md-2">Time</span>
-        <span class="col col-md-2">Title</span>
-        <span class="col col-md-2">Duration</span>
-        <span class="col col-md-2">Due</span>
-    </div>
-    <section class="events">
-        @{
-            //Events grouped by category
-            foreach (var evt in Model.Events)
-            {
-                <div class="row">
-                    <span class="col col-md-2">@evt.Category.Description</span>
-                    <span class="col col-md-2">@evt.OccursAt</span>
-                    <span class="col col-md-2">@evt.Title</span>
-                    <span class="col col-md-2">@evt.Duration</span>
-                    <span class="col col-md-2">@evt.CompleteBy</span>
-                </div>
+<script type="text/javascript">
+    function toggle_schedule(showID) {
+        if (showID != null) {
+            document.getElementById("day").style.display = 'none'
+            document.getElementById("week").style.display = 'none'
+            document.getElementById("month").style.display = 'none'
+            if ("month_button".match(showID)) {
+                document.getElementById("month").style.display = 'block'
+            } else if ("week_button".match(showID)) {
+                document.getElementById("week").style.display = 'block'
+            } else {
+                document.getElementById("day").style.display = 'block'
             }
         }
-    </section>
+    }
+</script>
+
+<h2>Schedule</h2>
+<div class="row">
+    <button id="day_button" class="btn" onclick="toggle_schedule(this.id)">Day</button>
+    <button id="week_button" class="btn" onclick="toggle_schedule(this.id)">Week</button>
+    <button id="month_button" class="btn" onclick="toggle_schedule(this.id)">Month</button>
 </div>
 
+<div id="schedule" class="row">
+    <div id="day" class="table">
+        <div id="columns"class="row">
+            <span class="col col-md-2">Category</span>
+            <span class="col col-md-2">Time</span>
+            <span class="col col-md-2">Title</span>
+            <span class="col col-md-2">Duration</span>
+            <span class="col col-md-2">Due</span>
+        </div>
+        <section class="events">
+            @{
+                //Events grouped by category
+                foreach (var evt in Model.Events)
+                {
+                    <div class="row">
+                        <span class="col col-md-2">@evt.Category.Description</span>
+                        <span class="col col-md-2">@evt.OccursAt</span>
+                        <span class="col col-md-2">@evt.Title</span>
+                        <span class="col col-md-2">@evt.Duration</span>
+                        <span class="col col-md-2">@evt.CompleteBy</span>
+                    </div>
+                }
+            }
+        </section>
+    </div>
+
+    <div id="week" class="table">
+        Week
+    </div>
+
+    <div id="month" class="table">
+        Month
+    </div>
+</div>
 @{ /*
   @foreach (var item in Model)
   {
