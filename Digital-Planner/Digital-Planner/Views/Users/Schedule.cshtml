@@ -6,13 +6,13 @@
 
 <h2>Schedule</h2>
 
-<section id="day" class="table">
+<div id="day" class="table">
     <div id="columns"class="row">
-        <span class="col">Category</span>
-        <span class="col">Time</span>
-        <span class="col">Title</span>
-        <span class="col">Duration</span>
-        <span class="col">Due</span>
+        <span class="col col-md-2">Category</span>
+        <span class="col col-md-2">Time</span>
+        <span class="col col-md-2">Title</span>
+        <span class="col col-md-2">Duration</span>
+        <span class="col col-md-2">Due</span>
     </div>
     <section class="events">
         @{
@@ -20,16 +20,16 @@
             foreach (var evt in Model.Events)
             {
                 <div class="row">
-                    <span class="col">@evt.Category.Description</span>
-                    <span class="col">@evt.OccursAt</span>
-                    <span class="col">@evt.Title</span>
-                    <span class="col">@evt.Duration</span>
-                    <span class="col">@evt.CompleteBy</span>
+                    <span class="col col-md-2">@evt.Category.Description</span>
+                    <span class="col col-md-2">@evt.OccursAt</span>
+                    <span class="col col-md-2">@evt.Title</span>
+                    <span class="col col-md-2">@evt.Duration</span>
+                    <span class="col col-md-2">@evt.CompleteBy</span>
                 </div>
             }
         }
     </section>
-</section>
+</div>
 
 @{ /*
   @foreach (var item in Model)
