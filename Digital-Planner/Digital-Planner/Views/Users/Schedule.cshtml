@@ -17,45 +17,58 @@
                 document.getElementById("schedule_text").innerHTML = 'this week'
             } else {
                 document.getElementById("day").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Today'
+                document.getElementById("schedule_text").innerHTML = 'today'
             }
         }
     }
 </script>
 
-<h2>Schedule for <span id="schedule_text">Today</span></h2>
+<h2>Schedule for <span id="schedule_text">today</span></h2>
 <div class="row">
-    <button id="day_button" class="btn" onclick="toggle_schedule(this.id)">Today</button>
-    <button id="week_button" class="btn" onclick="toggle_schedule(this.id)">Week</button>
-    <button id="month_button" class="btn" onclick="toggle_schedule(this.id)">Month</button>
+    <center>
+        <button id="day_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Today</button>
+        <button id="week_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Week</button>
+        <button id="month_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Month</button>
+    </center>
 </div>
 
-<div id="schedule" class="row">
-    <div id="day" class="table">
-        <div id="columns"class="row">
-            <span class="col col-md-2">Category</span>
-            <span class="col col-md-2">Time</span>
-            <span class="col col-md-2">Title</span>
-            <span class="col col-md-2">Duration</span>
-            <span class="col col-md-2">Due</span>
-        </div>
-        <section class="events">
-            @{
-                //Events grouped by category
-                foreach (var evt in Model.Events.OrderBy(e => e.CategoryID).OrderBy(e => e.Priority))
+<div id="schedule" class="row" style="margin-top:1%">
+    <div id="day">
+        <table style="width:100%">
+            <tr id="columns" style="border-bottom:2px solid">
+                <th><center><strong>Category</strong></center></th>
+                <th><center><strong>Time</strong></center></th>
+                <th><center><strong>Title</strong></center></th>
+                <th><center><strong>Duration</strong></center></th>
+                <th><center><strong>Due</strong></center></th>
+            </tr>
+            @foreach (var category_group in Model.Events.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+            {
+                <tr><td>&nbsp;</td></tr>
+                var rowspan = category_group.Count() + 1;
+                <td class="" rowspan="@rowspan" style="border:1px solid;"><center>@category_group.First().Category.Description</center></td>
+
+                foreach (var evt in category_group.OrderBy(e => e.Priority))
                 {
-                    <div class="row">
-                        <span class="col col-md-2">@evt.Category.Description</span>
-                        <span class="col col-md-2">@evt.OccursAt</span>
-                        <span class="col col-md-2">@evt.Title</span>
-                        <span class="col col-md-2">@evt.Duration</span>
-                        <span class="col col-md-2">@evt.CompleteBy</span>
-                    </div>
+                    <tr style="border: 1px solid;">
+                        <td class=""><center>@evt.OccursAt</center></td>
+                        <td class=""><center>@evt.Title</center></td>
+                        @*@<td class=""><center>@Html.ActionLink(evt.Title, "Details", "Events", evt.ID)</center></td>*@
+                        <td class=""><center>@evt.Duration</center></td>
+                        @{  if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
+                            {
+                                <td class="text-danger"><center>@evt.CompleteBy</center></td>
+                            }
+                            else
+                            {
+                                <td class=""><center>@evt.CompleteBy</center></td>
+                            }
+                        }
+                    </tr>
                 }
             }
-        </section>
+        </table>
     </div>
-
     <div id="week" class="table">
         Week
     </div>
