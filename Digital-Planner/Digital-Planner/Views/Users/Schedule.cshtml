@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Schedule";
+    var model_events = Model.Events;
 }
 <script type="text/javascript">
     function toggle_schedule(showID) {
@@ -33,7 +34,7 @@
 </div>
 
 <div id="schedule" class="row" style="margin-top:1%">
-    <div id="day">
+    <div id="day" style="display:none;">
         <table style="width:100%">
             <tr id="columns" style="border-bottom:2px solid">
                 <th><center><strong>Category</strong></center></th>
@@ -42,7 +43,8 @@
                 <th><center><strong>Duration</strong></center></th>
                 <th><center><strong>Due</strong></center></th>
             </tr>
-            @foreach (var category_group in Model.Events.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+            @{ var day_events = model_events.Where(e => e.OccursAt.Date == DateTime.Today.Date || e.CompleteBy == DateTime.Today.Date); }
+            @foreach (var category_group in day_events.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
             {
                 <tr><td>&nbsp;</td></tr>
                 var rowspan = category_group.Count() + 1;
@@ -52,8 +54,7 @@
                 {
                     <tr style="border: 1px solid;">
                         <td class=""><center>@evt.OccursAt</center></td>
-                        <td class=""><center>@evt.Title</center></td>
-                        @*@<td class=""><center>@Html.ActionLink(evt.Title, "Details", "Events", evt.ID)</center></td>*@
+                        <td class=""><center>@Html.ActionLink(evt.Title, "Details/" + evt.ID, "Events")</center></td>
                         <td class=""><center>@evt.Duration</center></td>
                         @{  if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
                             {
@@ -64,40 +65,83 @@
                                 <td class=""><center>@evt.CompleteBy</center></td>
                             }
                         }
+
+                        @* Edit/Delete glyph-links*@
+                        
+                        <td style="border-left:1px solid">
+                            <center>
+                                <a class="btn-xs btn-success" title="Edit event"  href=@Url.Action("Edit/" + evt.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
+                            </center>
+                        </td>
+                        <td style="border-left:1px solid">
+                            <center>
+                                <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + evt.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
+                            </center>
+                        </td>
                     </tr>
                 }
-            }
+             }
         </table>
     </div>
-    <div id="week" class="table">
-        Week
+
+    <div id="week">
+        <table style="width:100%">
+            <tr id="columns" style="border-bottom:2px solid">
+                <th><center><strong>Day of Week</strong></center></th>
+                <th><center><strong>Category</strong></center></th>
+                <th><center><strong>Time</strong></center></th>
+                <th><center><strong>Title</strong></center></th>
+                <th><center><strong>Duration</strong></center></th>
+                <th><center><strong>Due</strong></center></th>
+            </tr>
+            @{ var week_events = model_events.Where(e => e.OccursAt.Subtract(DateTime.Today.Date).TotalDays <= 7 || e.CompleteBy.Subtract(DateTime.Today.Date).TotalDays <= 7); }
+            @foreach (var day_group in week_events.GroupBy(e => e.OccursAt.Date))
+            {
+                <tr><td>&nbsp;</td></tr>
+                var rowspan_day = day_group.Count() + 1;
+                <td class="" rowspan="@rowspan_day" style="border:1px solid;"><center>@day_group.First().OccursAt.DayOfWeek, @day_group.First().OccursAt.Day</center></td>
+                
+                foreach (var category_group in day_group.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+                {
+                    var rowspan_cat = category_group.Count() + 1;
+                    <td class="" rowspan="@rowspan_cat" style="border:1px solid;"><center>@category_group.First().Category.Description</center></td>
+
+                    foreach (var evt in category_group.OrderBy(e => e.Priority))
+                    {
+                        <tr style="border: 1px solid;">
+                            <td class=""><center>@evt.OccursAt</center></td>
+                            <td class=""><center>@Html.ActionLink(evt.Title, "Details/" + evt.ID, "Events")</center></td>
+                            <td class=""><center>@evt.Duration</center></td>
+                            @{  if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
+                            {
+                                    <td class="text-danger"><center>@evt.CompleteBy</center></td>
+                                }
+                                else
+                                {
+                                    <td class=""><center>@evt.CompleteBy</center></td>
+                                }
+                            }
+
+                            @* Edit/Delete glyph-links*@
+
+                            <td style="border-left:1px solid">
+                                <center>
+                                    <a class="btn-xs btn-success" title="Edit event" href=@Url.Action("Edit/" + evt.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
+                                </center>
+                            </td>
+                            <td style="border-left:1px solid">
+                                <center>
+                                    <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + evt.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
+                                </center>
+                            </td>
+                        </tr>
+                                        }
+                                    }
+                                }
+        </table>
     </div>
 
     <div id="month" class="table">
         Month
     </div>
 </div>
-@{ /*
-  @foreach (var item in Model)
-  {
-      <tr>
-          <td>
-              @Html.DisplayFor(modelItem => item.FirstName)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.LastName)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.Email)
-          </td>
-          <td>
-              @Html.DisplayFor(modelItem => item.Password)
-          </td>
-          <td>
-              @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-              @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-              @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-          </td>
-      </tr>
-  }*/
-}
