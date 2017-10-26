@@ -18,13 +18,13 @@
                 document.getElementById("schedule_text").innerHTML = 'this week'
             } else {
                 document.getElementById("day").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'today'
+                document.getElementById("schedule_text").innerHTML = 'today, @DateTime.Today.ToShortDateString()'
             }
         }
     }
 </script>
 
-<h2>Schedule for <span id="schedule_text">today</span></h2>
+<h2>Schedule for <span id="schedule_text">today, @DateTime.Today.ToShortDateString()</span></h2>
 <div class="row">
     <center>
         <button id="day_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Today</button>
@@ -99,7 +99,7 @@
             {
                 <tr><td>&nbsp;</td></tr>
                 var rowspan_day = day_group.Count() + 1;
-                <td class="" rowspan="@rowspan_day" style="border:1px solid;"><center>@day_group.First().OccursAt.DayOfWeek, @day_group.First().OccursAt.Day</center></td>
+                <td class="" rowspan="@rowspan_day" style="border:1px solid;"><center>@day_group.First().OccursAt.Month/@day_group.First().OccursAt.Day, a @day_group.First().OccursAt.DayOfWeek</center></td>
                 
                 foreach (var category_group in day_group.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
                 {
