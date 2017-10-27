@@ -34,7 +34,17 @@
 </div>
 
 <div id="schedule" class="row" style="margin-top:1%">
-    <div id="day" style="display:none;">
+    <div id="day" class="table">
+        <table class="table">
+        @{ var today_by_cats = Model.Events.Where(e => e.OccursAt.DayOfYear == DateTime.Today.DayOfYear || e.CompleteBy.DayOfYear == DateTime.Today.DayOfYear);}
+        @foreach (var cat in today_by_cats.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+        {
+            @Html.Partial("_Category", cat) 
+        }
+        </table>
+    </div>
+    @*
+    <div id="day">
         <table style="width:100%">
             <tr id="columns" style="border-bottom:2px solid">
                 <th><center><strong>Category</strong></center></th>
@@ -66,7 +76,7 @@
                             }
                         }
 
-                        @* Edit/Delete glyph-links*@
+                        @* Edit/Delete glyph-links*@@*
                         
                         <td style="border-left:1px solid">
                             <center>
@@ -79,13 +89,24 @@
                             </center>
                         </td>
                     </tr>
-                }
-             }
+                                }
+                            }
         </table>
     </div>
 
-    <div id="week">
-        <table style="width:100%">
+    *@@*
+    <div id="week" style="display:none;">
+
+    @{ var count_days = 0; }
+    @{ var week_events = Model.Events.Where(e => (e.OccursAt.DayOfYear - DateTime.Today.DayOfYear < 7 && e.OccursAt.DayOfYear - DateTime.Today.DayOfYear >= 0) || (e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear < 7 && e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear >= 0)); }
+
+    @if (week_events.Count() == 0)
+    {
+        <h3 class="text-center">There are no events scheduled for this week.</h3>
+    }
+    else
+    {
+        <table style="width:100%;">
             <tr id="columns" style="border-bottom:2px solid">
                 <th><center><strong>Day of Week</strong></center></th>
                 <th><center><strong>Category</strong></center></th>
@@ -94,54 +115,128 @@
                 <th><center><strong>Duration</strong></center></th>
                 <th><center><strong>Due</strong></center></th>
             </tr>
-            @{ var week_events = model_events.Where(e => e.OccursAt.Subtract(DateTime.Today.Date).TotalDays <= 7 || e.CompleteBy.Subtract(DateTime.Today.Date).TotalDays <= 7); }
-            @foreach (var day_group in week_events.GroupBy(e => e.OccursAt.Date))
-            {
-                <tr><td>&nbsp;</td></tr>
-                var rowspan_day = day_group.Count() + 1;
-                <td class="" rowspan="@rowspan_day" style="border:1px solid;"><center>@day_group.First().OccursAt.Month/@day_group.First().OccursAt.Day, a @day_group.First().OccursAt.DayOfWeek</center></td>
-                
-                foreach (var category_group in day_group.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+        @while (count_days < 7)
+        {
+            <tr><td>&nbsp;</td></tr>
+
+            var date = DateTime.Today.AddDays(count_days);
+            var week_events_by_day = week_events.Where(e => e.OccursAt.Day == date.Day || e.CompleteBy.Day == date.Day);
+
+            <tr style="border: 1px solid;">
+                @{ var day_rowspan = week_events_by_day.Count();}
+                <td rowspan="@day_rowspan"><center>@date.ToShortDateString()</center></td>
+
+                @foreach (var categories in week_events_by_day.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
                 {
-                    var rowspan_cat = category_group.Count() + 1;
-                    <td class="" rowspan="@rowspan_cat" style="border:1px solid;"><center>@category_group.First().Category.Description</center></td>
+                    <tr>
+                    @{var cat_rowspan = categories.Count();
+                    }
+                    <td rowspan="@cat_rowspan"><center>@categories.First().Category.Description</center></td>
 
-                    foreach (var evt in category_group.OrderBy(e => e.Priority))
+                    @foreach (var evt in categories)
                     {
-                        <tr style="border: 1px solid;">
-                            <td class=""><center>@evt.OccursAt</center></td>
-                            <td class=""><center>@Html.ActionLink(evt.Title, "Details/" + evt.ID, "Events")</center></td>
-                            <td class=""><center>@evt.Duration</center></td>
-                            @{  if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
-                            {
-                                    <td class="text-danger"><center>@evt.CompleteBy</center></td>
-                                }
-                                else
-                                {
-                                    <td class=""><center>@evt.CompleteBy</center></td>
-                                }
-                            }
+                        <td class=""><center>@evt.OccursAt</center></td>
+                        <td class=""><center>@Html.ActionLink(evt.Title, "Details/" + evt.ID, "Events")</center></td>
+                        <td class=""><center>@evt.Duration</center></td>
+                        if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
+                        {
+                            <td class="text-danger"><center>@evt.CompleteBy</center></td>
+                        }
+                        else
+                        {
+                            <td class=""><center>@evt.CompleteBy</center></td>
+                        }
+                    }
+                    </tr>
+                }
+            </tr>
+            count_days++;
+        }
+        </table>
+    }
 
-                            @* Edit/Delete glyph-links*@
+            @*
+                @{ var week_events = model_events.Where(e => e.OccursAt.Day >)}
+                @foreach (var day_group in week_events.GroupBy(e => e.OccursAt.Date))
+                {
+                    <tr><td>&nbsp;</td></tr>
+                    var rowspan_day = day_group .Count() + 1;
+                    <td class="" rowspan="@rowspan_day" style="border:1px solid;"><center>@day_group.First().OccursAt.DayOfWeek - @day_group.First().OccursAt.Month/@day_group.First().OccursAt.Day</center></td>
 
-                            <td style="border-left:1px solid">
-                                <center>
-                                    <a class="btn-xs btn-success" title="Edit event" href=@Url.Action("Edit/" + evt.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
-                                </center>
-                            </td>
-                            <td style="border-left:1px solid">
-                                <center>
-                                    <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + evt.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
-                                </center>
-                            </td>
-                        </tr>
-                                        }
+                    foreach (var category_group in day_group.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+                    {
+                        var rowspan_cat = category_group.Count() + 1;
+                        <td class="" rowspan="@rowspan_cat" style="border:1px solid;"><center>@category_group.First().Category.Description</center></td>
+
+                        foreach (var evt in category_group.OrderBy(e => e.Priority))
+                        {
+                            <tr style="border: 1px solid;">
+                                <td class=""><center>@evt.OccursAt</center></td>
+                                <td class=""><center>@Html.ActionLink(evt.Title, "Details/" + evt.ID, "Events")</center></td>
+                                <td class=""><center>@evt.Duration</center></td>
+                                @{  if (DateTime.Today.Date.Equals(evt.CompleteBy.Date))
+                                    {
+                                        <td class="text-danger"><center>@evt.CompleteBy</center></td>
+                                    }
+                                    else
+                                    {
+                                        <td class=""><center>@evt.CompleteBy</center></td>
                                     }
                                 }
-        </table>
+
+                                @* Edit/Delete glyph-links*@@*
+
+                    <td style="border-left:1px solid">
+                        <center>
+                            <a class="btn-xs btn-success" title="Edit event" href=@Url.Action("Edit/" + evt.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
+                        </center>
+                    </td>
+                    <td style="border-left:1px solid">
+                        <center>
+                            <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + evt.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
+                        </center>
+                    </td>
+                </tr>
+                                }
+                            }
+                        }
+                                
+                            </table>
     </div>
 
-    <div id="month" class="table">
-        Month
+    <div id="month" style="display:none;">
+        <table width="100%">
+            @{ var month_events = model_events.Where(e => (e.OccursAt.Date.Month == DateTime.Today.Month && e.OccursAt.Date.Year == DateTime.Today.Year) || (e.CompleteBy.Date.Month == DateTime.Today.Month && e.CompleteBy.Date.Year == DateTime.Today.Year));}
+            @{ var day_number = 1;}
+            @while (day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+            {
+                var week_index = 1;
+                var day_num = day_number;
+                <tr>
+                    @while (week_index++ <= 7 && day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+                    {
+                        <th><h4>@day_number</h4></th>
+                        day_number++;
+                    }
+                </tr>
+
+                week_index = 1;
+                day_number = day_num;
+                <tr>
+                    @while (week_index++ <= 7 && day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+                    {
+                        foreach (var events_in_day in month_events.OrderBy(e => e.OccursAt))
+                        {
+                            if (day_number == events_in_day.OccursAt.Day)
+                            {
+                            <td style="padding:1%;"><h6>@events_in_day.Title</h6></td>
+                            }
+                        }
+                        day_number++;
+                    }
+                </tr>
+            }
+        </table>
     </div>
+    *@
 </div>

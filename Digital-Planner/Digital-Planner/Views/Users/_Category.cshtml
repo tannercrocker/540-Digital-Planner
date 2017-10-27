@@ -1,0 +1,38 @@
+﻿@model IGrouping<int, Digital_Planner.Models.Event>
+
+<tr>
+    @{ var cat_rowspan = Model.Count() + 1;}
+    <td rowspan="@cat_rowspan">@Model.First().Category.Description</td>
+    @foreach (var cat in Model.OrderBy(e => e.Priority))
+    {
+        var row_class = "";
+        var row_title = "";
+        if (! cat.IsComplete && cat.CompleteBy.Date.Equals(DateTime.Today.Date))
+        {
+            row_class = "danger";
+            row_title = "This event is set to be complete today";
+        }
+        else if (cat.IsComplete && cat.CompleteBy.Date.Equals(DateTime.Today.Date))
+        {
+            row_class = "success";
+            row_title = "This event is complete";
+        }
+        <tr class="@row_class" title="@row_title">
+            <td>@cat.OccursAt.TimeOfDay</td>
+            <td>@cat.Priority</td>
+            <td>@cat.Title</td>
+            <td>@cat.CompleteBy</td>
+            @{ 
+                if (cat.IsComplete)
+                {
+                    <td>Completed</td>
+                }
+                else
+                {
+                    <td>Incomplete</td>
+                }
+            }
+            <td>@cat.IsComplete</td>
+        </tr>
+    }
+</tr>
