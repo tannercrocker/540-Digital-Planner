@@ -2,54 +2,35 @@
 
 <tr>
     @{ var cat_rowspan = Model.Count() + 1;}
-    <td rowspan="@cat_rowspan">@Model.First().Category.Description</td>
-    @foreach (var evt in Model.OrderBy(e => e.Priority))
+    <td rowspan="@cat_rowspan" class="text-center">@Model.First().Category.Description</td>
+    @foreach (var evt in Model.OrderBy(e => e.OccursAt))
     {
         var row_class = "";
-        var row_title = "";
-        if (!evt.IsComplete && evt.CompleteBy.Date.Equals(DateTime.Today.Date))
+        var priority = evt.Priority;
+        if(0 > priority)
         {
-            row_class = "danger";
-            row_title = "This event is set to be complete today";
+            priority = priority * -1;
         }
-        else if (evt.IsComplete && evt.CompleteBy.Date.Equals(DateTime.Today.Date))
+        switch (priority)
         {
-            row_class = "success";
-            row_title = "This event is complete";
+            case 1:
+                row_class = "dismissable";
+                break;
+            case 2:
+                row_class = "info";
+                break;
+            case 3:
+                row_class = "warning";
+                break;
+            case 4:
+                row_class = "danger";
+                break;
+            default:
+                break;
         }
 
-        <tr class="@row_class" title="@row_title">
+        <tr class="@row_class" priority="@priority">
             @Html.Partial("_Event", evt)
         </tr>
-        @*
-        var row_class = "";
-        var row_title = "";
-        if (!evt.IsComplete && evt.CompleteBy.Date.Equals(DateTime.Today.Date))
-        {
-            row_class = "danger";
-            row_title = "This event is set to be complete today";
-        }
-        else if (evt.IsComplete && evt.CompleteBy.Date.Equals(DateTime.Today.Date))
-        {
-            row_class = "success";
-            row_title = "This event is complete";
-        }
-    
-    <tr class="@row_class" title="@row_title">
-        <td>@evt.OccursAt.TimeOfDay</td>
-        <td>@evt.Priority</td>
-        <td>@evt.Title</td>
-        <td>@evt.CompleteBy</td>
-        @{
-            if (evt.IsComplete)
-            {
-                <td><span class="glyphicon glyphicon-check alert-success"></span></td>
-            }
-            else
-            {
-                <td><span class="glyphicon glyphicon-remove alert-danger"></span></td>
-            }
-        }
-    </tr> *@
     }
 </tr>

@@ -1,17 +1,43 @@
 ﻿@model  Digital_Planner.Models.Event
 
-<td>@Model.OccursAt.TimeOfDay</td>
-<td>@Model.Priority</td>
-<td>@Model.Title</td>
-<td>@Model.CompleteBy</td>
+@{ 
+    var tile_class = "";
+    var tile_title = "";
+    if (!Model.IsComplete && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
+    {
+        tile_class = "danger";
+        tile_title = "This event is set to be complete today";
+    }
+    else if (Model.IsComplete && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
+    {
+        tile_class = "success";
+        tile_title = "This event is complete";
+    }
+
+    var am_or_pm = "AM";
+    if(Model.OccursAt.Hour > 12)
+    {
+        am_or_pm = "PM";
+    }
+}
+<td class="text-center">@Model.OccursAt.ToShortTimeString() @am_or_pm</td>
+<td class="text-center">@Model.Title</td>
+<td class="text-center text-@tile_class" title="@tile_title">@Model.CompleteBy</td>
 @{
     if (Model.IsComplete)
     {
-        <td><span class="glyphicon glyphicon-check text-success"></span></td>
+        <td class="text-center"><span class="glyphicon glyphicon-check text-success"></span></td>
     }
     else
     {
-        <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+        <td class="text-center"><span class="glyphicon glyphicon-remove text-danger"></span></td>
     }
 }
+@* Edit/Delete glyph-links*@
+    <td class="text-center">
+        <a class="btn-xs btn-success" title="Edit event"  href=@Url.Action("Edit/" + Model.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
+    </td>
+    <td class="text-center">
+        <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + Model.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
 
