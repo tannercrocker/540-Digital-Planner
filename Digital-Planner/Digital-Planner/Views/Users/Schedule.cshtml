@@ -39,10 +39,14 @@
         @{ var today_by_cats = Model.Events.Where(e => e.OccursAt.DayOfYear == DateTime.Today.DayOfYear || e.CompleteBy.DayOfYear == DateTime.Today.DayOfYear);}
         @foreach (var cat in today_by_cats.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
         {
-            @Html.Partial("_Category", cat) 
+            @Html.Partial("_Category", cat)
         }
         </table>
     </div>
+    <div id="week">
+        </div>
+    <div id="month">
+        </div>
     @*
     <div id="day">
         <table style="width:100%">
