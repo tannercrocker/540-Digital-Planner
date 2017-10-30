@@ -1,0 +1,40 @@
+﻿@model HashSet<Digital_Planner.Models.Event>
+    @{
+        var month_events = Model.Where(e => e.OccursAt.Date.Month == DateTime.Today.Month && e.OccursAt.Date.Year == DateTime.Today.Year);
+        var day_number = 1;
+    }
+    @while (day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+            {
+        <div class="row text-center" style="width:95%;">
+            @*Do seven times...*@
+            @{ var week_index = 0; }
+            @while (week_index < 7 && day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+                {
+                <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
+                    <!-- #ddd is used by Bootstrap -->
+                    <table class="table" style="border:1px #ddd solid; width:inherit;">
+                        <tr><th colspan="2">@day_number</th></tr>
+                        @foreach (var day_evt in month_events.Where(e => e.OccursAt.Day == day_number || e.CompleteBy.Day == day_number))
+                    {
+                            @Html.Partial("_ShortEvent", day_evt)
+                        }
+
+                    </table>
+                </div>
+                day_number++;
+                week_index++;
+
+                if (day_number > DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+                {
+                    while (week_index < 7)
+                    {
+                        <div col="@day_number" class="" style="width:120px;display:inline-block;top:0;">
+                            <!-- #ddd is used by Bootstrap -->
+                            <table class="table" style="border:1px #ddd solid; width:inherit;"></table>
+                        </div>
+                        week_index++;
+                    }
+                }
+            }
+        </div>
+                }

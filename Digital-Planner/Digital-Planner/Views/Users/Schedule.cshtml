@@ -59,7 +59,7 @@
 
 
     <div id="week" class="table" style="display:none;">
-        <table class="table table-hover table-responsive">
+        <table class="table">
             @{ var week = Model.Events.Where(e => (e.OccursAt.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.OccursAt.DayOfYear - DateTime.Today.DayOfYear < 7) || (e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear < 7));}
             @foreach (var day in week.OrderBy(e => e.OccursAt).GroupBy(e => e.OccursAt.DayOfYear))
             {
@@ -75,10 +75,10 @@
                         <th colspan="2" class="text-center">Edit/Delete</th>
                         
                     </tr>
-                    foreach(var cat in day.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
-                    {
+                foreach (var cat in day.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+                {
                         @Html.Partial("_Category", cat)
-                    }
+                }
                     @*Blank row for styling...*@
                     <tr>
                         <td colspan="7"></td>
@@ -86,46 +86,9 @@
             }
         </table>
         </div>
-
-
-    <div id="month" class="table">
-        <table class="table">
-        </table>
+    @* TO DO
+    @Html.Partial("_Month", null)  *@
+    <div id="month" class="container" style="display:none;">
+            @Html.Partial("_Month", model_events);
     </div>
-@*
-    <div id="month" style="display:none;">
-        <table width="100%">
-            @{ var month_events = model_events.Where(e => (e.OccursAt.Date.Month == DateTime.Today.Month && e.OccursAt.Date.Year == DateTime.Today.Year) || (e.CompleteBy.Date.Month == DateTime.Today.Month && e.CompleteBy.Date.Year == DateTime.Today.Year));}
-            @{ var day_number = 1;}
-            @while (day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
-            {
-                var week_index = 1;
-                var day_num = day_number;
-                <tr>
-                    @while (week_index++ <= 7 && day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
-                    {
-                        <th><h4>@day_number</h4></th>
-                        day_number++;
-                    }
-                </tr>
-
-                week_index = 1;
-                day_number = day_num;
-                <tr>
-                    @while (week_index++ <= 7 && day_number < DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
-                    {
-                        foreach (var events_in_day in month_events.OrderBy(e => e.OccursAt))
-                        {
-                            if (day_number == events_in_day.OccursAt.Day)
-                            {
-                            <td style="padding:1%;"><h6>@events_in_day.Title</h6></td>
-                            }
-                        }
-                        day_number++;
-                    }
-                </tr>
-            }
-        </table>
-    </div>
-    *@
 </div>
