@@ -260,16 +260,16 @@
     <Content Include="Views\Days\Details.cshtml" />
     <Content Include="Views\Days\Edit.cshtml" />
     <Content Include="Views\Days\Index.cshtml" />
-    <Content Include="Views\Events\Create.cshtml" />
-    <Content Include="Views\Events\Delete.cshtml" />
-    <Content Include="Views\Events\Details.cshtml" />
-    <Content Include="Views\Events\Edit.cshtml" />
-    <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Users\Schedule.cshtml" />
     <Content Include="Views\Users\_Category.cshtml" />
     <Content Include="Views\Users\_Event.cshtml" />
     <Content Include="Views\Users\_ShortEvent.cshtml" />
     <Content Include="Views\Users\_Month.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

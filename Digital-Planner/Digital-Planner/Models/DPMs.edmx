@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -32,9 +32,9 @@
           <Property Name="OccursAt" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
           <Property Name="BufferTime" Type="time" Precision="7" />
-          <Property Name="Priority" Type="int" />
           <Property Name="CompleteBy" Type="datetime" Nullable="false" />
           <Property Name="IsComplete" Type="bit" Nullable="false" />
+          <Property Name="AutoAssign" Type="bit" Nullable="false" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -119,20 +119,41 @@
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="calendarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="calendarModel.Category" />
+          <EntitySet Name="Days" EntityType="calendarModel.Day" />
+          <EntitySet Name="Events" EntityType="calendarModel.Event" />
+          <EntitySet Name="Users" EntityType="calendarModel.User" />
+          <AssociationSet Name="FK_Category_User" Association="calendarModel.FK_Category_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Day_User" Association="calendarModel.FK_Day_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Day" EntitySet="Days" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_User" Association="calendarModel.FK_Event_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Category" Association="calendarModel.FK_Event_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Category_User" FromRole="Category" ToRole="User" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Event_Category" FromRole="Category" ToRole="Event" />
+          <NavigationProperty Name="User" Relationship="calendarModel.FK_Category_User" FromRole="Category" ToRole="User" />
+          <NavigationProperty Name="Events" Relationship="calendarModel.FK_Event_Category" FromRole="Category" ToRole="Event" />
         </EntityType>
         <EntityType Name="Day">
           <Key>
@@ -143,42 +164,42 @@
           <Property Name="WorkStarts" Type="Time" Nullable="false" Precision="7" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Day_User" FromRole="Day" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="calendarModel.FK_Day_User" FromRole="Day" ToRole="User" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OccursAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Duration" Type="Time" Nullable="false" Precision="7" />
           <Property Name="BufferTime" Type="Time" Precision="7" />
-          <Property Name="Priority" Type="Int32" />
           <Property Name="CompleteBy" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsComplete" Type="Boolean" Nullable="false" />
+          <Property Name="AutoAssign" Type="Boolean" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Event_Category" FromRole="Event" ToRole="Category" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Event_User" FromRole="Event" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="calendarModel.FK_Event_User" FromRole="Event" ToRole="User" />
+          <NavigationProperty Name="Category" Relationship="calendarModel.FK_Event_Category" FromRole="Event" ToRole="Category" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_Category_User" FromRole="User" ToRole="Category" />
-          <NavigationProperty Name="Days" Relationship="Self.FK_Day_User" FromRole="User" ToRole="Day" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Event_User" FromRole="User" ToRole="Event" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Categories" Relationship="calendarModel.FK_Category_User" FromRole="User" ToRole="Category" />
+          <NavigationProperty Name="Days" Relationship="calendarModel.FK_Day_User" FromRole="User" ToRole="Day" />
+          <NavigationProperty Name="Events" Relationship="calendarModel.FK_Event_User" FromRole="User" ToRole="Event" />
         </EntityType>
         <Association Name="FK_Category_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Type="calendarModel.User" Role="User" Multiplicity="1" />
+          <End Type="calendarModel.Category" Role="Category" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
@@ -188,21 +209,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Event_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Day_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Day" Type="Self.Day" Multiplicity="*" />
+          <End Type="calendarModel.User" Role="User" Multiplicity="1" />
+          <End Type="calendarModel.Day" Role="Day" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
@@ -213,8 +222,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Event_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <End Type="calendarModel.User" Role="User" Multiplicity="1" />
+          <End Type="calendarModel.Event" Role="Event" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
@@ -224,29 +233,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="calendarEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Days" EntityType="Self.Day" />
-          <EntitySet Name="Events" EntityType="Self.Event" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Category_User" Association="Self.FK_Category_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Category" EntitySet="Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_Category" Association="Self.FK_Event_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Day_User" Association="Self.FK_Day_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Day" EntitySet="Days" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_User" Association="Self.FK_Event_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <Association Name="FK_Event_Category">
+          <End Type="calendarModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="calendarModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -255,48 +254,48 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="calendarModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Days">
             <EntityTypeMapping TypeName="calendarModel.Day">
               <MappingFragment StoreEntitySet="Day">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="HoursAvailable" ColumnName="HoursAvailable" />
-                <ScalarProperty Name="WorkStarts" ColumnName="WorkStarts" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="WorkStarts" ColumnName="WorkStarts" />
+                <ScalarProperty Name="HoursAvailable" ColumnName="HoursAvailable" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="calendarModel.Event">
               <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="OccursAt" ColumnName="OccursAt" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="BufferTime" ColumnName="BufferTime" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="CompleteBy" ColumnName="CompleteBy" />
-                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AutoAssign" ColumnName="AutoAssign" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="CompleteBy" ColumnName="CompleteBy" />
+                <ScalarProperty Name="BufferTime" ColumnName="BufferTime" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="OccursAt" ColumnName="OccursAt" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="calendarModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
