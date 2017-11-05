@@ -20,6 +20,7 @@ namespace Digital_Planner.Models
         public System.TimeSpan Duration { get; set; }
         public Nullable<System.TimeSpan> BufferTime { get; set; }
         public System.DateTime CompleteBy { get; set; }
+        public int Priority { get; set; }
         public bool IsComplete { get; set; }
         public bool AutoAssign { get; set; }
         public string Location { get; set; }

@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="78e10959f4a948879b2654269a50684c" Name="Diagram1">
-        <EntityTypeShape EntityType="calendarModel.Category" Width="1.5" PointX="5.375" PointY="2.5" />
-        <EntityTypeShape EntityType="calendarModel.Day" Width="1.5" PointX="3" PointY="3.375" />
-        <EntityTypeShape EntityType="calendarModel.Event" Width="1.5" PointX="8.25" PointY="1.875" />
-        <EntityTypeShape EntityType="calendarModel.User" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="calendarModel.Category" Width="1.5" PointX="5.125" PointY="1.125" />
+        <EntityTypeShape EntityType="calendarModel.Day" Width="1.5" PointX="2.75" PointY="2" />
+        <EntityTypeShape EntityType="calendarModel.Event" Width="1.5" PointX="8" PointY="0.5" />
+        <EntityTypeShape EntityType="calendarModel.User" Width="1.5" PointX="0.5" PointY="1.125" />
         <AssociationConnector Association="calendarModel.FK_Category_User" />
         <AssociationConnector Association="calendarModel.FK_Day_User" />
         <AssociationConnector Association="calendarModel.FK_Event_User" />

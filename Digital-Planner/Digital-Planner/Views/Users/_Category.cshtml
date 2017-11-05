@@ -1,36 +1,39 @@
 ﻿@model IGrouping<int, Digital_Planner.Models.Event>
 
 <tr>
-    @{ var cat_rowspan = Model.Count() + 1;}
-    <td rowspan="@cat_rowspan" class="text-center">@Model.First().Category.Description</td>
-    @foreach (var evt in Model.OrderBy(e => e.OccursAt))
-    {
-        var row_class = "";
-        var priority = evt.Priority;
-        if(0 > priority)
+    @{ 
+        var cat_rowspan = Model.Count() + 1;
+        <td rowspan="@cat_rowspan" class="text-center">@Model.First().Category.Description</td>
+        foreach (var evt in Model.OrderBy(e => e.OccursAt))
         {
-            priority = priority * -1;
-        }
-        switch (priority)
-        {
-            case 1:
-                row_class = "dismissable";
-                break;
-            case 2:
-                row_class = "info";
-                break;
-            case 3:
-                row_class = "warning";
-                break;
-            case 4:
-                row_class = "danger";
-                break;
-            default:
-                break;
-        }
+            var row_class = "";
+            var priority = evt.Priority;
+            if (0 > priority)
+            {
+                priority = priority * -1;
+            }
+            switch (priority)
+            {
+                case 1:
+                    row_class = "dismissable";
+                    break;
+                case 2:
+                    row_class = "info";
+                    break;
+                case 3:
+                    row_class = "warning";
+                    break;
+                case 4:
+                    row_class = "danger";
+                    break;
+                default:
+                    break;
+            }
 
-        <tr class="@row_class" priority="@priority">
-            @Html.Partial("_Event", evt)
-        </tr>
+            <tr class="@row_class" priority="@priority">
+                @Html.Partial("_Event", evt)
+            </tr>
+        }
     }
-</tr>
+<!--
+</tr> -->

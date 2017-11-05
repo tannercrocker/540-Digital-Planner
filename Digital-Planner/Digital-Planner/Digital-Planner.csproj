@@ -199,6 +199,7 @@
       <DependentUpon>DPMs.edmx</DependentUpon>
       <LastGenOutput>DPMs.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\DPMs.edmx.sql" />
     <Content Include="Models\DPMs.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DPMs.edmx</DependentUpon>
