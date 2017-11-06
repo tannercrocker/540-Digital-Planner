@@ -25,7 +25,10 @@
                     <li>@Html.ActionLink("Event", "Index", "Events")</li>
                     <li>@Html.ActionLink("Category", "Index", "Categories")</li>
                     @* This hard-coded link must change eventually. *@
-                    <li>@Html.ActionLink("My Schedule", "Schedule/1", "Users")</li>
+                    @{ var db = new Digital_Planner.Models.calendarEntities();
+                        var first = db.Users.First();
+                    }
+                    <li>@Html.ActionLink("My Schedule", "Schedule/" + first.ID , "Users")</li>
                 </ul>
             </div>
         </div>
