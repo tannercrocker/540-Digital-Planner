@@ -3,36 +3,51 @@
 @{ 
     var tile_class = "";
     var tile_title = "";
-    if (!Model.IsComplete && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
+
+    //Incomplete & DateTime has passed
+    if (!Model.IsComplete && Model.CompleteBy.CompareTo(DateTime.Now) < 0)
     {
+
         tile_class = "danger";
-        tile_title = "This event is set to be complete today";
+        tile_title = "This event is past due";
     }
-    else if (Model.IsComplete && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
+    //Incomplete & DateTime is today
+    else if (!Model.IsComplete && Model.CompleteBy.Date.CompareTo(DateTime.Now.Date) == 0)
+    {
+        tile_class = "warning";
+        tile_title = "This event is set to be completed today";
+    }
+    else if (Model.IsComplete)
     {
         tile_class = "success";
         tile_title = "This event is complete";
     }
-
-    var am_or_pm = "AM";
-    if(Model.OccursAt.Hour > 12)
-    {
-        am_or_pm = "PM";
-    }
 }
-<td class="text-center">@Model.OccursAt.ToShortTimeString() @am_or_pm</td>
+<td class="text-center">@Model.OccursAt.ToString("h:mm tt")</td>
 <td class="text-center">@Model.Title</td>
-<td class="text-center text-@tile_class" title="@tile_title">@Model.CompleteBy</td>
-@{
-    if (Model.IsComplete)
+<td class="text-center" title="@tile_title">
+    @if (Model.CompleteBy.Date.Equals(DateTime.Today.Date))
     {
-        <td class="text-center"><span class="glyphicon glyphicon-check text-success"></span></td>
+        @Model.CompleteBy.ToString("h:mm tt") 
     }
     else
     {
-        <td class="text-center"><span class="glyphicon glyphicon-remove text-danger"></span></td>
+        @Model.CompleteBy.ToString("M/d/yyyy h:mm tt")
     }
-}
+</td>
+<td class="text-center">
+    @{
+        if (Model.IsComplete)
+        {
+            //Don't need text-success since it will inherit it.
+            <span class="glyphicon glyphicon-check"></span>
+        }
+        else
+        {
+            <span class="glyphicon glyphicon-remove text-danger"></span>
+        }
+    }
+</td>
 @* Edit/Delete glyph-links*@
     <td class="text-center">
         <a class="btn-xs btn-success" title="Edit event"  href=@Url.Action("Edit/" + Model.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>

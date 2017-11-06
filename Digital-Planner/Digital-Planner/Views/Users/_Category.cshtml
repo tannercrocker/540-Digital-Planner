@@ -30,7 +30,22 @@
                     break;
             }
 
-            <tr class="@row_class" priority="@priority">
+            var tile_class = "";
+            //Incomplete & DateTime has passed
+            if (!evt.IsComplete && evt.CompleteBy.CompareTo(DateTime.Now) < 0)
+            {
+                tile_class = "danger";
+            }
+            //Incomplete & DateTime is today
+            else if (!evt.IsComplete && evt.CompleteBy.Date.CompareTo(DateTime.Now.Date) == 0)
+            {
+                tile_class = "warning";
+            }
+            else if (evt.IsComplete)
+            {
+                tile_class = "success";
+            }
+            <tr class="@row_class text-@tile_class" priority="@priority">
                 @Html.Partial("_Event", evt)
             </tr>
         }

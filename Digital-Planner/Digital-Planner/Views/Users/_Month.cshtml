@@ -1,33 +1,27 @@
 ﻿@model HashSet<Digital_Planner.Models.Event>
     @{
-        var this_month = DateTime.Today.Month;
-        var this_year = DateTime.Today.Year;
-        var month_events = Model
-            .Where(e => e.OccursAt.Date.Month == this_month && e.OccursAt.Date.Year == this_month);
+        var month_events = Model.Where(e => e.OccursAt.Date.Month == DateTime.Today.Month);// && e.OccursAt.Date.Year == DateTime.Today.Year);
         var day_number = 1;
     }
     @while (day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
             {
         <div class="row text-center" style="width:95%;">
             @*Do seven times...*@
-            @{ 
-                var week_index = 0;
-            }
-            @while (week_index < 7 && day_number <= DateTime.DaysInMonth(this_year, this_month))
-            {
+            @{ var week_index = 0; }
+            @while (week_index < 7 && day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+                {
                 <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
                     <!-- #ddd is used by Bootstrap -->
-                    <table class="table" style="border:1px #ddd solid; width:inherit;">
+                    <table class="table" style="border:1px #ddd solid;width:inherit;">
                         <tr>
                             <th>@day_number</th>
-                            <th>
-                                <a class="" title="Edit availability" href=@Url.Action("Edit/", "Days")>
-                                    <span class="glyphicon glyphicon-time"></span>
-                                </a>
-                            </th>       
+                            <th class="text-right">
+                                <a class="black-link" title="Edit event" href=@Url.Action("Edit/", "Days")>
+                                    <span class="glyphicon glyphicon-time black-link" />
+                                </a></th>
                         </tr>
-                        @foreach (var day_evt in month_events.Where(e => e.OccursAt.Day == day_number || e.CompleteBy.Day == day_number))
-                        {
+                        @foreach (var day_evt in month_events.Where(e => e.OccursAt.Day == day_number))// || e.CompleteBy.Day == day_number))
+                    {
                             @Html.Partial("_ShortEvent", day_evt)
                         }
 

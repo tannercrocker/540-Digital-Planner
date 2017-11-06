@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/* Override Bootstrap coloring of <a> */
+.black-link {
+    color: #333 !important;
+}

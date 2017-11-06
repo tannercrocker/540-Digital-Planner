@@ -1,0 +1,34 @@
+﻿@model HashSet<Digital_Planner.Models.Event>
+
+@{
+    var week = Model.Where(e => (e.OccursAt.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.OccursAt.DayOfYear - DateTime.Today.DayOfYear < 7) || (e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear < 7));
+}
+<table class="table">
+    @foreach (var day in week.OrderBy(e => e.OccursAt).GroupBy(e => e.OccursAt.DayOfYear))
+    {
+        <tr>
+            <th colspan="7" class="text-center"><h4>@day.First().OccursAt.DayOfWeek, @day.First().OccursAt.ToShortDateString()</h4></th>
+        </tr>
+        <tr>
+            <th class="text-center">Category</th>
+            <th class="text-center">Time</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Completion Time</th>
+            <th class="text-center">Completed</th>
+            <th class="text-center">Edit</th>
+            <th class="text-center">Delete</th>
+
+        </tr>
+        foreach (var cat in day.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
+        {
+            @Html.Partial("_Category", cat);
+        }
+
+        @* TODO: Replace with margin-styling *@
+        @*Blank row for styling...*@
+        <tr>
+            <td colspan="7"></td>
+        </tr>
+    }
+</table>
+
