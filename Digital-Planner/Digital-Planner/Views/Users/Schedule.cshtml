@@ -18,13 +18,13 @@
                 document.getElementById("schedule_text").innerHTML = 'Schedule for the week'
             } else {
                 document.getElementById("day").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Schedule for today: @DateTime.Today.ToString("MMMM"), @DateTime.Today.Day @DateTime.Today.Year'
+                document.getElementById("schedule_text").innerHTML = 'Schedule for today'
             }
         }
     }
 </script>
 
-<h2 id="schedule_text">Schedule for today: @DateTime.Today.ToString("MMMM"), @DateTime.Today.Day @DateTime.Today.Year</h2>
+<h2 id="schedule_text">Schedule for today:</h2>
 <div class="row">
     <center>
         <button id="day_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Today</button>

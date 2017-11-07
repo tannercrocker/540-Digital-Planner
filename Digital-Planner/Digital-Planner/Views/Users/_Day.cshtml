@@ -19,7 +19,7 @@
     else
     {
         <tr>
-            <th colspan="7"><h4>@intended_day.ToString("DDDDDDD, M/d/yyyy")</h4></th>
+            <th colspan="7"><h4>@intended_day.DayOfWeek.ToString(), @intended_day.ToString("M/d/yyyy")</h4></th>
         </tr>
 
         <tr>
@@ -37,8 +37,8 @@
             @Html.Partial("_Category", cat)
         }
 
-        <!-- Blank row for styling -->
-        <tr><td colspan="7"></td></tr>
+        <!-- Blank row for styling --
+        <tr><td colspan="7"></td></tr>-->
     }
 </table>
 

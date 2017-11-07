@@ -59,7 +59,7 @@
             @Html.DisplayFor(modelItem => item.BufferTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Priority)
+            @Html.Partial("_Priority", item.Priority)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CompleteBy)
