@@ -1,46 +1,55 @@
-﻿@model HashSet<Digital_Planner.Models.Event>
-    @{
-        var month_events = Model.Where(e => e.OccursAt.Date.Month == DateTime.Today.Month);// && e.OccursAt.Date.Year == DateTime.Today.Year);
-        var day_number = 1;
-    }
-    @while (day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+﻿@model ICollection<Digital_Planner.Models.Event>
+@{
+    var month_events = Model.
+        Where(e =>
+            (e.OccursAt.Month.Equals(DateTime.Today.Month) && e.OccursAt.Year.Equals(DateTime.Today.Year)) ||
+            (e.CompleteBy.Month.Equals(DateTime.Today.Month) && e.CompleteBy.Year.Equals(DateTime.Today.Year))
+        );
+    var day_number = 1;
+    var days_in_month = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
+}
+@while (day_number <= days_in_month)
+{
+    <div class="row text-center" style="width:95%;">
+        @* For each week of the month, go through the days of the week *@
+        @{ var week_index = 0; }
+        @while (week_index < 7 && day_number <= days_in_month)
             {
-        <div class="row text-center" style="width:95%;">
-            @*Do seven times...*@
-            @{ var week_index = 0; }
-            @while (week_index < 7 && day_number <= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
-                {
-                <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
-                    <!-- #ddd is used by Bootstrap -->
-                    <table class="table" style="border:1px #ddd solid;width:inherit;">
-                        <tr>
-                            <th>@day_number</th>
-                            <th class="text-right">
-                                <a class="black-link" title="Edit event" href=@Url.Action("Edit/", "Days")>
-                                    <span class="glyphicon glyphicon-time black-link" />
-                                </a></th>
-                        </tr>
-                        @foreach (var day_evt in month_events.Where(e => e.OccursAt.Day == day_number))// || e.CompleteBy.Day == day_number))
+            <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
+                <!-- #ddd is used by Bootstrap -->
+                <table class="table" style="border:1px #ddd solid;width:inherit;">
+                    <tr>
+                        <th>@day_number</th>
+                        <th class="text-right">
+                            <a class="black-link" title="Edit event" href=@Url.Action("Edit", "Days", new { id = 2 })>
+                                <span class="glyphicon glyphicon-time black-link" />
+                            </a></th>
+                    </tr>
+                    @foreach (var day_evt in month_events
+                        .Where(e => e.OccursAt.Day == day_number)// || e.CompleteBy.Day == day_number))
+                        .OrderBy(e => e.OccursAt)
+                        .ThenBy(e => e.CompleteBy)
+                        )
                     {
-                            @Html.Partial("_ShortEvent", day_evt)
-                        }
-
-                    </table>
-                </div>
-                day_number++;
-                week_index++;
-
-                if (day_number > DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
-                {
-                    while (week_index < 7)
-                    {
-                        <div col="@day_number" class="" style="width:120px;display:inline-block;top:0;">
-                            <!-- #ddd is used by Bootstrap -->
-                            <table class="table" style="border:1px #ddd solid; width:inherit;"></table>
-                        </div>
-                        week_index++;
+                        @Html.Partial("_ShortEvent", day_evt)
                     }
+
+                </table>
+            </div>
+            day_number++;
+            week_index++;
+
+            if (day_number > DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+            {
+                while (week_index < 7)
+                {
+                    <div col="@day_number" class="" style="width:120px;display:inline-block;top:0;">
+                        <!-- #ddd is used by Bootstrap -->
+                        <table class="table" style="border:1px #ddd solid; width:inherit;"></table>
+                    </div>
+                    week_index++;
                 }
             }
-        </div>
-                }
+        }
+    </div>
+}

@@ -1,11 +1,20 @@
-﻿@model HashSet<Digital_Planner.Models.Event>
+﻿@model ICollection<Digital_Planner.Models.Event>
 
 @{
-    var week = Model.Where(e => (e.OccursAt.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.OccursAt.DayOfYear - DateTime.Today.DayOfYear < 7) || (e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear < 7));
+    var week_events_by_day = Model
+        .Where(e => (e.OccursAt.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.OccursAt.DayOfYear - DateTime.Today.DayOfYear < 7) || (e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear >= 0 && e.CompleteBy.DayOfYear - DateTime.Today.DayOfYear < 7))
+        .GroupBy(e => e.OccursAt.DayOfYear);
 }
-<table class="table">
-    @foreach (var day in week.OrderBy(e => e.OccursAt).GroupBy(e => e.OccursAt.DayOfYear))
+<table class="table table-hover table-responsive">
+    @{ 
+        var offset = 0;
+    }
+    @foreach (var events in week_events_by_day)
     {
+        @Html.Partial("_Day", new Tuple<DateTime, ICollection<Digital_Planner.Models.Event>>(DateTime.Today.AddDays(offset++), Model))
+        
+
+        @*
         <tr>
             <th colspan="7" class="text-center"><h4>@day.First().OccursAt.DayOfWeek, @day.First().OccursAt.ToShortDateString()</h4></th>
         </tr>
@@ -15,20 +24,18 @@
             <th class="text-center">Title</th>
             <th class="text-center">Completion Time</th>
             <th class="text-center">Completed</th>
-            <th class="text-center">Edit</th>
-            <th class="text-center">Delete</th>
-
+            <!-- Blank header for styling -->
+            <th colspan="2"></th>
         </tr>
+
         foreach (var cat in day.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
         {
             @Html.Partial("_Category", cat);
         }
 
-        @* TODO: Replace with margin-styling *@
-        @*Blank row for styling...*@
-        <tr>
-            <td colspan="7"></td>
-        </tr>
+        <!-- Blank row for styling -->
+        <tr><td colspan="7"></td></tr>
+        *@
     }
 </table>
 

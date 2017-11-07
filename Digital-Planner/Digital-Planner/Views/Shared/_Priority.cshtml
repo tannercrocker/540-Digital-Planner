@@ -1,0 +1,29 @@
+﻿@model int
+@{ 
+    var describe = "";
+    var value = "";
+
+    if(1 >= Model)
+    {
+        describe = "default";
+        value = "low";
+    }
+    else if(2 >= Model)
+    {
+        describe = "primary";
+        value = "m-low";
+    }
+    else if( 3 >= Model)
+    {
+        describe = "info";
+        value = "m-high";
+    }
+    else
+    {
+        describe = "danger";
+        value = "high";
+    }
+}
+<span class="btn-group btn-group-sm">
+    <span class="btn btn-@describe">@value</span>
+</span>

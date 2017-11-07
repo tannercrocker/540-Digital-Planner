@@ -28,3 +28,21 @@ textarea {
 .black-link {
     color: #333 !important;
 }
+
+
+/* Bootstrap styles table headers with text-left, this corrects that */
+th {
+    text-align:center !important;
+}
+
+/* Bootstrap doesn't automatically vert-align table data */
+/* Bootstrap doesn't automatically center-text table data */
+td {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+a.btn:hover {
+    text-decoration-line: none !important;
+    vertical-align: middle !important;
+}

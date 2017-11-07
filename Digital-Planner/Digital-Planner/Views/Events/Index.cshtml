@@ -4,18 +4,22 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>All Events</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-responsive">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.OccursAt)
+        </th>
+        @* Header for categories - 'description' doesn't adequately define what is in the column *@
+        <th>
+            Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OccursAt)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Duration)
@@ -35,22 +39,18 @@
         <th>
             @Html.DisplayNameFor(model => model.Location)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
+        <!-- Blank header tag for uniform look to each row -->
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model.OrderBy(e => e.OccursAt).ThenBy(e => !e.IsComplete)) {
+    <tr class="text-center">
+        <td>@item.OccursAt.ToString("M/d/yyyy hh:mm tt")</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @item.Category.Description
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OccursAt)
+            @Html.ActionLink(item.Title, "Edit", "Events", new { id = item.ID }, new { })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Duration)
@@ -71,15 +71,7 @@
             @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Category.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.Partial("../Shared/_EventButtons", item)
         </td>
     </tr>
 }

@@ -1,0 +1,13 @@
+﻿@model Digital_Planner.Models.Event
+
+<span class="btn-group btn-group-sm">
+    <a class="btn btn-primary" title="View details" href=@Url.Action("Details", "Events", new { id = Model.ID })>
+        <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+    <a class="btn btn-success" title="Edit event" href=@Url.Action("Edit", "Events", new { id = Model.ID })>
+        <span class="glyphicon glyphicon-edit"></span>
+    </a>
+    <a class="btn btn-danger" title="Delete event" href=@Url.Action("Delete", "Events", new { id = Model.ID })>
+        <span class="glyphicon glyphicon-remove"></span>
+    </a>
+</span>

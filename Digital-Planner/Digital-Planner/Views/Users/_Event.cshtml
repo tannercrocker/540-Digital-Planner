@@ -23,19 +23,19 @@
         tile_title = "This event is complete";
     }
 }
-<td class="text-center">@Model.OccursAt.ToString("h:mm tt")</td>
-<td class="text-center">@Model.Title</td>
-<td class="text-center" title="@tile_title">
+<td>@Model.OccursAt.ToString("M/d/yyyy h:mm tt")</td>
+<td>@Model.Title</td>
+<td title="@tile_title">
     @if (Model.CompleteBy.Date.Equals(DateTime.Today.Date))
     {
-        @Model.CompleteBy.ToString("h:mm tt") 
+        @Model.CompleteBy.ToString("M/d/yyyy h:mm tt") 
     }
     else
     {
         @Model.CompleteBy.ToString("M/d/yyyy h:mm tt")
     }
 </td>
-<td class="text-center">
+<td>
     @{
         if (Model.IsComplete)
         {
@@ -49,10 +49,7 @@
     }
 </td>
 @* Edit/Delete glyph-links*@
-    <td class="text-center">
-        <a class="btn-xs btn-success" title="Edit event"  href=@Url.Action("Edit/" + Model.ID, "Events")><span class="glyphicon glyphicon-edit"></span></a>
-    </td>
-    <td class="text-center">
-        <a class="btn-xs btn-danger" title="Delete event" href=@Url.Action("Delete/" + Model.ID, "Events")><span class="glyphicon glyphicon-remove"></span></a>
+    <td>
+        @Html.Partial("_EventButtons", Model)
     </td>
 
