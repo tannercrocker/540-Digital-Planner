@@ -12,19 +12,19 @@
             document.getElementById("month").style.display = 'none'
             if ("month_button".match(showID)) {
                 document.getElementById("month").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Events of @DateTime.Today.ToString("MMMM") @DateTime.Today.Year'
+                document.getElementById("schedule_text").innerHTML = 'Events for @DateTime.Today.ToString("MMMM") @DateTime.Today.Year'
             } else if ("week_button".match(showID)) {
                 document.getElementById("week").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Schedule for the week'
+                document.getElementById("schedule_text").innerHTML = 'Events for the next week'
             } else {
                 document.getElementById("day").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Schedule for today'
+                document.getElementById("schedule_text").innerHTML = 'Events for today'
             }
         }
     }
 </script>
 
-<h2 id="schedule_text">Schedule for today:</h2>
+<h2 id="schedule_text">Events for today</h2>
 <div class="row">
     <center>
         <button id="day_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Today</button>
@@ -35,18 +35,7 @@
 
 <div id="schedule" class="row" style="margin-top:1%">
     
-    @{ 
-        /*
-        var day_events = new HashSet<Digital_Planner.Models.Event>();
-
-        (HashSet<Digital_Planner.Models.Event>)( model_events
-        .Where(e => e.OccursAt.Year.Equals(DateTime.Today.Year) && e.OccursAt.DayOfYear.Equals(DateTime.Today.DayOfYear))
-        .AsEnumerable().
-        //.OrderBy(e => e.OccursAt)
-        .GroupBy(e => e.OccursAt.DayOfYear)
-        //.GroupBy(e => e.Category)
-        );*/
-
+    @{
         //Add year to where
         var evts = model_events
             .Where(e => e.OccursAt.DayOfYear.Equals(DateTime.Today.DayOfYear) && e.OccursAt.Year.Equals(DateTime.Today.Year))
@@ -54,30 +43,6 @@
     }
     <div id="day" class="table">
         @Html.Partial("_Day", new Tuple<DateTime, ICollection<Digital_Planner.Models.Event>>(DateTime.Today, model_events))
-                
-        @*
-        <table class="table table-hover table-responsive">
-            <tr>
-                <th>Category</th>
-                <th>Time</th>
-                <th>Title</th>
-                <th>Completion Time</th>
-                <th>Completed</th>
-                <!-- Blank header for styling-->
-                <th colspan="2">Edit</th>
-            </tr>
-
-            @{ var today_by_cats = Model.Events.Where(e => e.OccursAt.DayOfYear == DateTime.Today.DayOfYear || e.CompleteBy.DayOfYear == DateTime.Today.DayOfYear);}
-            @foreach (var cat in today_by_cats.OrderBy(e => e.Priority).GroupBy(e => e.CategoryID))
-            {
-                @Html.Partial("_Category", cat)
-            }
-            @*Blank row for styling...*
-            <tr>
-                <td colspan="7"></td>
-            </tr>
-        </table>
-        *@
     </div>
 
 
@@ -88,4 +53,8 @@
     <div id="month" class="container" style="display:none;">
         @Html.Partial("_Month", model_events)
     </div>
+</div>
+
+<div>
+    @Html.Partial("_PreviousPageHyperlink")
 </div>

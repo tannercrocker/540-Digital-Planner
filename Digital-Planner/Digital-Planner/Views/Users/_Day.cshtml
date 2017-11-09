@@ -8,15 +8,13 @@
     var today_by_cats = events
         .Where(e => e.OccursAt.DayOfYear.Equals(intended_day.DayOfYear) && e.OccursAt.Year.Equals(intended_day.Year))
         //|| e.CompleteBy.DayOfYear.Equals(intended_day.DayOfYear) && e.CompleteBy.Year.Equals(intended_day.Year))
-        .OrderBy(e => e.Priority).ThenBy(e => e.OccursAt);
+        .OrderBy(e => e.Priority)
+        .ThenBy(e => e.OccursAt)
+        ;
 }
 
 <table class="table table-hover table-responsive" style="margin-bottom:1%;">
-    @if (today_by_cats.Count() == 0)
-    {
-
-    }
-    else
+    @if (today_by_cats.Count() > 0)
     {
         <tr>
             <th colspan="7"><h4>@intended_day.ToString("dddd, M/d/yyyy")</h4></th>

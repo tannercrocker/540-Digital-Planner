@@ -14,9 +14,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
         <th></th>
     </tr>
 
@@ -26,12 +23,7 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.Partial("_Edit-Detail-Delete_Buttons", new Tuple<System.Web.Mvc.ControllerBase, int>(ViewContext.Controller, item.ID))
         </td>
     </tr>
 }

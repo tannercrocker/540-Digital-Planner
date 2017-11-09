@@ -9,9 +9,6 @@
     var days_in_month = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
 }
 
-<!--
-<table class="table text-center">
-    <tr>-->
 <div class="row text-center" style="width:95%;">
     <div class="month_day_header"><h4>Sunday</h4></div>
     <div class="month_day_header"><h4>Monday</h4></div>
@@ -21,15 +18,13 @@
     <div class="month_day_header"><h4>Friday</h4></div>
     <div class="month_day_header"><h4>Saturday</h4></div>
 </div>
-<!--
-    </tr>
-</table>-->
+
 @while (day_number <= days_in_month)
 {
     <div class="row text-center" style="width:95%;">
         @{
             var week_index = 0;
-            var day_of_month = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            var day_of_month = new DateTime(DateTime.Today.Year, DateTime.Today.Month, day_number);
 
 
             if (day_number == 1)
@@ -52,14 +47,19 @@
 
             <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
                 <!-- #ddd is used by Bootstrap -->
-                <table class="table" style="border:1px #ddd solid;width:inherit;">
+                <table class="table table-hover" style="border:1px #ddd solid;width:inherit;">
                     <tr>
                         <th>@day_number</th>
                         <th class="text-right">
-                        @* TODO - find the day corresponding.... *@
-                            <a class="black-link" title="Edit event" href=@Url.Action("Edit", "Days", new { id = 2 })>
+                            @{
+                                //find the day/availability corresponding....
+                                //This doesn't always link to the correct availability. User might have multiple availability sessions in a day.
+                                var first_availability = month_events.First().User.Days.Where(d => d.Date.Date.Equals(day_of_month)).First();
+                            }
+                            <a class="black-link" title="Edit availability" href=@Url.Action("Edit", "Days", new { id = first_availability.ID })>
                                 <span class="glyphicon glyphicon-time black-link" />
-                            </a></th>
+                            </a>
+                        </th>
                     </tr>
                     @{
                         var events_for_day = month_events

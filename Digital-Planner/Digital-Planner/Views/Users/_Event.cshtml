@@ -1,31 +1,10 @@
 ﻿@model  Digital_Planner.Models.Event
 
-@{ 
-    var tile_class = "";
-    var tile_title = "";
-
-    //Incomplete & DateTime has passed
-    if (!Model.IsComplete && Model.CompleteBy.CompareTo(DateTime.Now) < 0)
-    {
-
-        tile_class = "danger";
-        tile_title = "This event is past due";
-    }
-    //Incomplete & DateTime is today
-    else if (!Model.IsComplete && Model.CompleteBy.Date.CompareTo(DateTime.Now.Date) == 0)
-    {
-        tile_class = "warning";
-        tile_title = "This event is set to be completed today";
-    }
-    else if (Model.IsComplete)
-    {
-        tile_class = "success";
-        tile_title = "This event is complete";
-    }
-}
 <td>@Model.OccursAt.ToString("M/d/yyyy h:mm tt")</td>
-<td>@Model.Title</td>
-<td title="@tile_title">
+<td>
+    @Html.ActionLink(@Model.Title, "Details", "Events", new { id = Model.ID }, new { title = "Event details" })
+</td>
+<td title="">
     @if (Model.CompleteBy.Date.Equals(DateTime.Today.Date))
     {
         @Model.CompleteBy.ToString("M/d/yyyy h:mm tt") 
@@ -36,20 +15,10 @@
     }
 </td>
 <td>
-    @{
-        if (Model.IsComplete)
-        {
-            //Don't need text-success since it will inherit it.
-            <span class="glyphicon glyphicon-check"></span>
-        }
-        else
-        {
-            <span class="glyphicon glyphicon-remove text-danger"></span>
-        }
-    }
+    @Html.Partial("_CompletionCheck", Model.IsComplete)
 </td>
 @* Edit/Delete glyph-links*@
-    <td>
-        @Html.Partial("_EventButtons", Model)
-    </td>
+<td>
+    @Html.Partial("_Edit-Detail-Delete_Buttons", new Tuple<System.Web.Mvc.ControllerBase, int>(ViewContext.Controller, Model.ID))
+</td>
 

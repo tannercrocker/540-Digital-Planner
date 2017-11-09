@@ -272,9 +272,11 @@
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Users\_Week.cshtml" />
-    <Content Include="Views\Shared\_EventButtons.cshtml" />
+    <Content Include="Views\Shared\_Edit-Detail-Delete_Buttons.cshtml" />
     <Content Include="Views\Users\_Day.cshtml" />
     <Content Include="Views\Shared\_Priority.cshtml" />
+    <Content Include="Views\Shared\_CompletionCheck.cshtml" />
+    <Content Include="Views\Shared\_PreviousPageHyperlink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
