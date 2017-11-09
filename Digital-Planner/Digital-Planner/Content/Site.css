@@ -46,3 +46,9 @@ a.btn:hover {
     text-decoration-line: none !important;
     vertical-align: middle !important;
 }
+
+.month_day_header {
+    display:inline-block;
+    margin-left: 1.75em;
+    margin-right: 1.75em;
+}

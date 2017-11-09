@@ -9,12 +9,12 @@
         tile_class = "warning";
         tile_title = "This event is set to be complete today";
     }
-    else if (!Model.IsComplete && Model.CompleteBy.Date.CompareTo(DateTime.Today.Date) < 0)
+    if (!Model.IsComplete && Model.CompleteBy.CompareTo(DateTime.Now) <= 0)
     {
         tile_class = "danger";
         tile_title = "This event is past due";
     }
-    else if (Model.IsComplete)// && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
+    if (Model.IsComplete)// && Model.CompleteBy.Date.Equals(DateTime.Today.Date))
     {
         tile_class = "success";
         tile_title = "This event is complete";
@@ -22,8 +22,8 @@
 
 }
 <tr title="@tile_title" class="@tile_class">
-    <td class="text-center">@Model.OccursAt.ToString("h:mm tt")</td>
-    <td class="text-center">@Html.ActionLink(Model.Title, "Edit/" + Model.ID, "Events", new {title="Edit event" })</td>
+    <td>@Model.OccursAt.ToString("h:mm tt")</td>
+    <td>@Html.ActionLink(Model.Title, "Details", "Events", new { id = Model.ID }, new {title="Event details" })</td>
 </tr>
 
 
