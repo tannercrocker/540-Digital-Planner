@@ -163,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Additional_Model_Logic.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>DPMs.tt</DependentUpon>
     </Compile>
@@ -302,6 +303,12 @@
     <Content Include="Views\Shared\_Priority.cshtml" />
     <Content Include="Views\Shared\_CompletionCheck.cshtml" />
     <Content Include="Views\Shared\_PreviousPageHyperlink.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTimeSelector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateSelector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TimeSelector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PriorityButtons.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CompletionCheck.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AutomaticAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

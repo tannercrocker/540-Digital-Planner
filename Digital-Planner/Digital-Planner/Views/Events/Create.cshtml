@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    ViewBag.picker_index = 0;
 }
 
 <h2>Create</h2>
@@ -22,15 +23,18 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.OccursAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.OccursAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OccursAt, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -47,6 +51,7 @@
             </div>
         </div>
 
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.CompleteBy, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

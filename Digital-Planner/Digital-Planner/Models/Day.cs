@@ -15,9 +15,9 @@ namespace Digital_Planner.Models
     public partial class Day
     {
         public int ID { get; set; }
-        public System.TimeSpan HoursAvailable { get; set; }
-        public System.TimeSpan WorkStarts { get; set; }
-        public System.DateTime Date { get; set; }
+        public TimeSpan HoursAvailable { get; set; }
+        public TimeSpan WorkStarts { get; set; }
+        public DateTime Date { get; set; }
         public int UserID { get; set; }
     
         public virtual User User { get; set; }
