@@ -56,10 +56,10 @@ a.btn:hover {
 
 .month_day_number {
     text-align: left !important;
-    padding-left: 1.5em !important;
+    padding-left: 1.25em !important;
 }
 
 .month_day_availability {
     text-align: right !important;
-    padding-right: 1.5em !important;
+    padding-right: 1.25em !important;
 }
