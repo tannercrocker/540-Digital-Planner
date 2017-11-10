@@ -44,21 +44,36 @@
         @* For each week of the month, go through the days of the week *@
         @while (week_index < 7 && day_number <= days_in_month)
         {
+            day_of_month = new DateTime(DateTime.Today.Year, DateTime.Today.Month, day_number);
 
             <div col="@day_number" class="top" style="width:120px;display:inline-block;vertical-align:top;">
                 <!-- #ddd is used by Bootstrap -->
                 <table class="table table-hover" style="border:1px #ddd solid;width:inherit;">
                     <tr>
-                        <th>@day_number</th>
-                        <th class="text-right">
+                        <th class="month_day_number">@day_number</th>
+                        <th class="month_day_availability">
                             @{
+                                Digital_Planner.Models.Day first_availability = new Digital_Planner.Models.Day();
                                 //find the day/availability corresponding....
                                 //This doesn't always link to the correct availability. User might have multiple availability sessions in a day.
-                                var first_availability = month_events.First().User.Days.Where(d => d.Date.Date.Equals(day_of_month)).First();
+                                if (month_events.Count() > 0)
+                                {
+                                    if (month_events.First().User.Days.Where(d => d.Date.Date.Equals(day_of_month)).Count() > 0)
+                                    {
+                                        first_availability = month_events.First().User.Days.Where(d => d.Date.Date.Equals(day_of_month)).First();
+
+                                        <a class="black-link" title="Edit availability" href=@Url.Action("Edit", "Days", new { id = first_availability.ID })>
+                                            <span class="glyphicon glyphicon-time black-link" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="black-link text-right" title="Add availability" href=@Url.Action("Create", "Days", new { date = day_of_month.ToShortDateString() })>
+                                            <span class="glyphicon glyphicon-time black-link text-right" />
+                                        </a>
+                                    }
+                                }
                             }
-                            <a class="black-link" title="Edit availability" href=@Url.Action("Edit", "Days", new { id = first_availability.ID })>
-                                <span class="glyphicon glyphicon-time black-link" />
-                            </a>
                         </th>
                     </tr>
                     @{
