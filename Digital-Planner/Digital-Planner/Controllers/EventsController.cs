@@ -49,7 +49,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,OccursAt,Duration,BufferTime,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
+        public ActionResult Create([Bind(Include = "ID,Title,OccursAt,Duration,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,OccursAt,Duration,BufferTime,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
+        public ActionResult Edit([Bind(Include = "ID,Title,OccursAt,Duration,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
         {
             if (ModelState.IsValid)
             {

@@ -18,7 +18,6 @@ namespace Digital_Planner.Models
         public string Title { get; set; }
         public System.DateTime OccursAt { get; set; }
         public System.TimeSpan Duration { get; set; }
-        public Nullable<System.TimeSpan> BufferTime { get; set; }
         public System.DateTime CompleteBy { get; set; }
         public int Priority { get; set; }
         public bool IsComplete { get; set; }
