@@ -63,3 +63,22 @@ a.btn:hover {
     text-align: right !important;
     padding-right: 1.25em !important;
 }
+
+/* Custom rules for date/time selector*/
+DateSelector,
+TimeSelector,
+DateTimeSelector,{
+
+}
+
+
+.timepicker-picker table,
+.timepicker-picker table td a span,
+.timepicker-picker table td,
+.timepicker-picker table td span {
+    height: 30px !important;
+    line-height: 2em !important;
+    width: 2em !important;
+    line-height: 2em !important;
+    padding: 0px !important;
+}
