@@ -160,6 +160,10 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="AutoSort\Planner.cs" />
+    <Compile Include="AutoSort\PlannerDay.cs" />
+    <Compile Include="AutoSort\PlannerEvent.cs" />
+    <Compile Include="AutoSort\PlannerSettings.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
