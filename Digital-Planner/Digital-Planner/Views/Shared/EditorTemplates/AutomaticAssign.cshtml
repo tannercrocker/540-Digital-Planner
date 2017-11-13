@@ -1,1 +1,30 @@
-﻿AutomaticAssign view not made yet!
+﻿@model Boolean
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.autoassign_picker .btn').click(function () {
+            $(this).parent().find('input').val($(this).data("value"));
+            //Remove old info, set the new info
+            $(document).find('.autoassign_picker-enable').removeClass('btn-primary');
+            $(document).find('.autoassign_picker-disable').removeClass('btn-primary');
+            $(this).addClass('btn-primary');
+            //Remove old info, set the new info for the glyphicon
+            $(document).find('.autoassign_picker-enable').html('');
+            $(document).find('.autoassign_picker-disable').html('');
+            $(this).html('<span class="glyphicon glyphicon-ok"></span>');
+            //Concat original text onto the buttons
+            $(document).find('.autoassign_picker-enable').html(
+                $(document).find('.autoassign_picker-enable').html() + ' On'
+            );
+            $(document).find('.autoassign_picker-disable').html(
+                $(document).find('.autoassign_picker-disable').html() + ' Off'
+            );
+        });
+    });
+</script>
+
+<div class="btn-group btn-group-sm autoassign_picker" data-toggle="buttons-radio">
+    <input type='hidden' name="AutoAssign"/>
+    <button type="button" data-value="1" class="btn btn-default autoassign_picker-enable">On</button>
+    <button type="button" data-value="0" class="btn btn-default autoassign_picker-disable">Off</button>
+</div>
