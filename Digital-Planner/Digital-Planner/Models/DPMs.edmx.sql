@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/10/2017 02:15:26
+-- Date Created: 11/13/2017 12:38:18
 -- Generated from EDMX file: C:\Users\techs\Source\Repos\540-Digital-Planner\Digital-Planner\Digital-Planner\Models\DPMs.edmx
 -- --------------------------------------------------
 
@@ -63,7 +63,6 @@ GO
 CREATE TABLE [dbo].[Days] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [HoursAvailable] time  NOT NULL,
-    [WorkStarts] time  NOT NULL,
     [Date] datetime  NOT NULL,
     [UserID] int  NOT NULL
 );

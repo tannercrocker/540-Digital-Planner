@@ -18,7 +18,7 @@ namespace Digital_Planner.Models
             public string FirstName { get; set; } = "First";
             public string LastName { get; set; } = "Last";
             public string Email { get; set; } = "example@example.com";
-            public string Password { get; set; } = "MyPassword1";
+            public string Password { get; set; } = "MyPa55word1";
         }
 
         public partial class Event_Metadata
@@ -42,8 +42,6 @@ namespace Digital_Planner.Models
         {
             [UIHint("TimeSelector")]
             public TimeSpan HoursAvailable { get; set; } = TimeSpan.MinValue;
-            [UIHint("TimeSelector")]
-            public TimeSpan WorkStarts { get; set; } = TimeSpan.MinValue;
             [UIHint("DateSelector")]
             public DateTime Date { get; set; } = DateTime.Now;
         }
