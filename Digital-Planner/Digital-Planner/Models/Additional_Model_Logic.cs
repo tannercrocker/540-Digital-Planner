@@ -6,87 +6,74 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Digital_Planner.Models
 {
-    /*
-    public class Additional_Model_Logic
-    {
-    }
-    */
-    /*
-    <MetadataType(GetType(MyEntity_Metadata))>
-Partial Public Class MyEntity
-End Class
 
-Class MyEntity_Metadata
-    <DisplayName("Key of the entity")>
-    Public Property Id As Integer
-    <UIHint("MyTextBox")>
-    Public Property Name As String
-End Class
-        */
-
-    /*  These class are more for inheritence logic stuff, add non-inherit stuff at the bottom of the file   */
-    public partial class User_Metadata
+    /*  These class are more for inheritence logic stuff,
+     *    add non-inherit stuff at the bottom of the file
+     *  The = * is what sets the default value 
+     */
+    namespace MetaData
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+        public partial class User_Metadata
+        {
+            public string FirstName { get; set; } = "First";
+            public string LastName { get; set; } = "Last";
+            public string Email { get; set; } = "example@example.com";
+            public string Password { get; set; } = "MyPassword1";
+        }
 
-    public partial class Event_Metadata
-    {
-        public string Title { get; set; }
-        [UIHint("DateTimeSelector")]
-        public DateTime OccursAt { get; set; }
-        [UIHint("TimeSelector")]
-        public TimeSpan Duration { get; set; }
-        [UIHint("DateTimeSelector")]
-        public DateTime CompleteBy { get; set; }
-        [UIHint("PriorityButtons")]
-        public int Priority { get; set; }
-        [UIHint("CompletionCheck")]
-        public bool IsComplete { get; set; }
-        [UIHint("AutomaticAssign")]
-        public bool AutoAssign { get; set; }
-    }
+        public partial class Event_Metadata
+        {
+            public string Title { get; set; } = "Title";
+            [UIHint("DateTimeSelector")]
+            public DateTime OccursAt { get; set; } = DateTime.Today;
+            [UIHint("TimeSelector")]
+            public TimeSpan Duration { get; set; } = TimeSpan.MinValue;
+            [UIHint("DateTimeSelector")]
+            public DateTime CompleteBy { get; set; } = DateTime.Today;
+            [UIHint("PriorityButtons")]
+            public int Priority { get; set; } = 1;
+            [UIHint("CompletionCheck")]
+            public bool IsComplete { get; set; } = false;
+            [UIHint("AutomaticAssign")]
+            public bool AutoAssign { get; set; } = false;
+        }
 
-    public partial class Day_Metadata
-    {
-        [UIHint("TimeSelector")]
-        public TimeSpan HoursAvailable { get; set; }
-        [UIHint("TimeSelector")]
-        public TimeSpan WorkStarts { get; set; }
-        [UIHint("DateSelector")]
-        public DateTime Date { get; set; }
-    }
+        public partial class Day_Metadata
+        {
+            [UIHint("TimeSelector")]
+            public TimeSpan HoursAvailable { get; set; } = TimeSpan.MinValue;
+            [UIHint("TimeSelector")]
+            public TimeSpan WorkStarts { get; set; } = TimeSpan.MinValue;
+            [UIHint("DateSelector")]
+            public DateTime Date { get; set; } = DateTime.Now;
+        }
 
-    public partial class Category_Metadata
-    {
-        public string Description { get; set; }
+        public partial class Category_Metadata
+        {
+            public string Description { get; set; } = "Description";
+        }
     }
 
 
-
-
-
+   
     /*  Non-inheritence stuff here  */
 
-    [MetadataType(typeof(User_Metadata))]
+    [MetadataType(typeof(MetaData.User_Metadata))]
     public partial class User
     {
     }
 
-    [MetadataType(typeof(Event_Metadata))]
+    [MetadataType(typeof(MetaData.Event_Metadata))]
     public partial class Event
     {
     }
 
-    [MetadataType(typeof(Day_Metadata))]
+    [MetadataType(typeof(MetaData.Day_Metadata))]
     public partial class Day
     {
     }
 
-    [MetadataType(typeof(Category_Metadata))]
+    [MetadataType(typeof(MetaData.Category_Metadata))]
     public partial class Category
     {
     }
