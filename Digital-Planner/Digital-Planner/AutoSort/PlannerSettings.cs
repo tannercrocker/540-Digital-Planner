@@ -5,12 +5,15 @@
 *   Description:    Contains the global settings for the application.
 */
 
-namespace Sorting_Prototype
+namespace Digital_Planner
 {
-    class PlannerSettings
+    namespace Sorting_Prototype
     {
-        public const float PRIORITY_WEIGHT = 1;
-        public const float HOURS_WEIGHT = 1;
-        public const float DUE_DATE_WEIGHT = 1;
+        class PlannerSettings
+        {
+            public const float PRIORITY_WEIGHT = 1;
+            public const float HOURS_WEIGHT = 1;
+            public const float DUE_DATE_WEIGHT = 1;
+        }
     }
 }
