@@ -41,7 +41,7 @@ namespace Digital_Planner.Controllers
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description");
             ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName");
-            return View();
+            return View(new Event());
         }
 
         // POST: Events/Create
