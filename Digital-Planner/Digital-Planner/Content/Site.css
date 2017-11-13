@@ -64,13 +64,28 @@ a.btn:hover {
     padding-right: 1.25em !important;
 }
 
-/* Custom rules for date/time selector*/
-DateSelector,
-TimeSelector,
-DateTimeSelector,{
-
+/* Remove negative margin from rows */
+.DateSelector .row,
+.TimeSelector .row,
+.DateTimeSelector .row{
+    margin: 0 !important;
 }
 
+/* 
+    The arrows are links in the timepicker;
+        This conflicts with the <a> rules above
+    Color comes from the orignal hover state
+*/
+.bootstrap-datetimepicker-widget a:hover {
+    /*  vertical-align: middle !important;  */
+    text-align: center !important;
+    color: #333 !important;
+}
+
+/*
+.bootstrap-datetimepicker-widget > .row {
+    margin: 0 !important;
+}*/
 
 .timepicker-picker table,
 .timepicker-picker table td a span,
@@ -80,5 +95,5 @@ DateTimeSelector,{
     line-height: 2em !important;
     width: 2em !important;
     line-height: 2em !important;
-    padding: 0px !important;
+    padding: 0 !important;
 }
