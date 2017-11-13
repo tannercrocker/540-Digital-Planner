@@ -9,9 +9,10 @@
             $(document).find('.autoassign_picker-disable').removeClass('btn-primary');
             $(this).addClass('btn-primary');
             //Remove old info, set the new info for the glyphicon
-            $(document).find('.autoassign_picker-enable').html('');
-            $(document).find('.autoassign_picker-disable').html('');
-            $(this).html('<span class="glyphicon glyphicon-ok"></span>');
+            $(document).find('.autoassign_picker-enable').html('<span class="glyphicon glyphicon-unchecked"></span>');
+            $(document).find('.autoassign_picker-disable').html('<span class="glyphicon glyphicon-unchecked"></span>');
+            //$(this).html('<span class="glyphicon glyphicon-ok"></span>');
+            $(this).html('<span class="glyphicon glyphicon-check"></span>');
             //Concat original text onto the buttons
             $(document).find('.autoassign_picker-enable').html(
                 $(document).find('.autoassign_picker-enable').html() + ' On'
@@ -25,6 +26,6 @@
 
 <div class="btn-group btn-group-sm autoassign_picker" data-toggle="buttons-radio">
     <input type='hidden' name="AutoAssign"/>
-    <button type="button" data-value="1" class="btn btn-default autoassign_picker-enable">On</button>
-    <button type="button" data-value="0" class="btn btn-default autoassign_picker-disable">Off</button>
+    <button type="button" data-value="1" class="btn btn-default autoassign_picker-enable"><span class="glyphicon glyphicon-unchecked"></span> On</button>
+    <button type="button" data-value="0" class="btn btn-default autoassign_picker-disable"><span class="glyphicon glyphicon-unchecked"></span> Off</button>
 </div>
