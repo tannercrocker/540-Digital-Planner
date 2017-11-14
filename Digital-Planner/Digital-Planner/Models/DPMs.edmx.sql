@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/05/2017 17:09:25
+-- Date Created: 11/13/2017 12:38:18
 -- Generated from EDMX file: C:\Users\techs\Source\Repos\540-Digital-Planner\Digital-Planner\Digital-Planner\Models\DPMs.edmx
 -- --------------------------------------------------
 
@@ -23,11 +23,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Day_User]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Days] DROP CONSTRAINT [FK_Day_User];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Event_User]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Events] DROP CONSTRAINT [FK_Event_User];
-GO
 IF OBJECT_ID(N'[dbo].[FK_Event_Category]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Events] DROP CONSTRAINT [FK_Event_Category];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Event_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Events] DROP CONSTRAINT [FK_Event_User];
 GO
 
 -- --------------------------------------------------
@@ -63,7 +63,6 @@ GO
 CREATE TABLE [dbo].[Days] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [HoursAvailable] time  NOT NULL,
-    [WorkStarts] time  NOT NULL,
     [Date] datetime  NOT NULL,
     [UserID] int  NOT NULL
 );
@@ -75,7 +74,6 @@ CREATE TABLE [dbo].[Events] (
     [Title] varchar(50)  NOT NULL,
     [OccursAt] datetime  NOT NULL,
     [Duration] time  NOT NULL,
-    [BufferTime] time  NULL,
     [CompleteBy] datetime  NOT NULL,
     [Priority] int  NOT NULL,
     [IsComplete] bit  NOT NULL,

@@ -45,10 +45,55 @@ td {
 a.btn:hover {
     text-decoration-line: none !important;
     vertical-align: middle !important;
+    text-align:right !important;
 }
 
 .month_day_header {
     display:inline-block;
     margin-left: 1.75em;
     margin-right: 1.75em;
+}
+
+.month_day_number {
+    text-align: left !important;
+    padding-left: 1.25em !important;
+}
+
+.month_day_availability {
+    text-align: right !important;
+    padding-right: 1.25em !important;
+}
+
+/* Remove negative margin from rows */
+.DateSelector .row,
+.TimeSelector .row,
+.DateTimeSelector .row{
+    margin: 0 !important;
+}
+
+/* 
+    The arrows are links in the timepicker;
+        This conflicts with the <a> rules above
+    Color comes from the orignal hover state
+*/
+.bootstrap-datetimepicker-widget a:hover {
+    /*  vertical-align: middle !important;  */
+    text-align: center !important;
+    color: #333 !important;
+}
+
+/*
+.bootstrap-datetimepicker-widget > .row {
+    margin: 0 !important;
+}*/
+
+.timepicker-picker table,
+.timepicker-picker table td a span,
+.timepicker-picker table td,
+.timepicker-picker table td span {
+    height: 30px !important;
+    line-height: 2em !important;
+    width: 2em !important;
+    line-height: 2em !important;
+    padding: 0 !important;
 }

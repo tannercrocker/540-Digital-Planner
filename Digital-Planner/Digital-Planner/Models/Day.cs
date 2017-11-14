@@ -16,7 +16,6 @@ namespace Digital_Planner.Models
     {
         public int ID { get; set; }
         public System.TimeSpan HoursAvailable { get; set; }
-        public System.TimeSpan WorkStarts { get; set; }
         public System.DateTime Date { get; set; }
         public int UserID { get; set; }
     

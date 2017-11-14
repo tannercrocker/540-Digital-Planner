@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-
+@* User is available for work on [Date], starting at [Time], for [Time]  & Should repeat for [x] weeks *@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -31,6 +31,7 @@
             </div>
         </div>
 
+        @* TODO - Swap out for [current_user] *@
         <div class="form-group">
             @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,6 +47,8 @@
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @* TODO - Add field for the number of re-occurrences *@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

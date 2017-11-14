@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    ViewBag.picker_index = 0;
 }
 
 <h2>Create</h2>
@@ -14,6 +15,15 @@
         <h4>Event</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AutoAssign, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AutoAssign, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AutoAssign, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -21,28 +31,23 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.OccursAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.OccursAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.OccursAt, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BufferTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BufferTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BufferTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -54,6 +59,7 @@
             </div>
         </div>
 
+        @{ ViewBag.picker_index++; }
         <div class="form-group">
             @Html.LabelFor(model => model.CompleteBy, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -80,6 +86,7 @@
             </div>
         </div>
 
+        @* TODO - Replace with [current_user] *@
         <div class="form-group">
             @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -88,6 +95,7 @@
             </div>
         </div>
 
+        @* TODO - Limit to [current_user]'s categories *@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -19,7 +19,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HoursAvailable" Type="time" Precision="7" Nullable="false" />
-          <Property Name="WorkStarts" Type="time" Precision="7" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
@@ -31,7 +30,6 @@
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OccursAt" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
-          <Property Name="BufferTime" Type="time" Precision="7" />
           <Property Name="CompleteBy" Type="datetime" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="IsComplete" Type="bit" Nullable="false" />
@@ -162,7 +160,6 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HoursAvailable" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="WorkStarts" Type="Time" Nullable="false" Precision="7" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="calendarModel.FK_Day_User" FromRole="Day" ToRole="User" />
@@ -175,7 +172,6 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OccursAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Duration" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="BufferTime" Type="Time" Precision="7" />
           <Property Name="CompleteBy" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="IsComplete" Type="Boolean" Nullable="false" />
@@ -267,7 +263,6 @@
         <MappingFragment StoreEntitySet="Days">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="HoursAvailable" ColumnName="HoursAvailable" />
-          <ScalarProperty Name="WorkStarts" ColumnName="WorkStarts" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
@@ -280,7 +275,6 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="OccursAt" ColumnName="OccursAt" />
           <ScalarProperty Name="Duration" ColumnName="Duration" />
-          <ScalarProperty Name="BufferTime" ColumnName="BufferTime" />
           <ScalarProperty Name="CompleteBy" ColumnName="CompleteBy" />
           <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
