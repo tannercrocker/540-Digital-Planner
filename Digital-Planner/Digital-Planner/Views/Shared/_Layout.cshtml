@@ -33,6 +33,20 @@
                     <li>@Html.ActionLink("My Schedule", "Schedule/" + first.ID , "Users")</li>
                 </ul>
             </div>
+            @*Changing up some code*@
+            <div style=" width:auto; background-color:aqua">
+                @if(Request.IsAuthenticated)
+                {
+                    <strong>@Html.Encode(User.Identity.Name)</strong>
+                    @Html.ActionLink("Log Out", "Logout", "Users")
+                }
+                else
+                {
+                    @Html.ActionLink("Register", "Register", "Users")
+                    <span> | </span>
+                    @Html.ActionLink("Log In", "Login", "Users")
+                }
+            </div>
         </div>
     </div>
     <div class="container body-content">
