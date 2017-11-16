@@ -23,13 +23,35 @@ namespace Digital_Planner
 
         public static void GenerateSchedule()
         {
-            System.Diagnostics.Debug.Print("");
-            System.Diagnostics.Debug.Print("Generate Schedule");
-
+            Reset();
             GetDataFromDatabase();
             //SortEvents();
             //AssignWorkDays();
-            db.SaveChanges();
+            DebugPrint();
+            SaveDataToDatabase();
+        }
+
+
+        private static void Reset()
+        {
+            autoEvents = new List<PlannerEvent>();
+            manualEvents = new List<PlannerEvent>();
+            days = new List<PlannerDay>();
+        }
+
+
+        private static void DebugPrint()
+        {
+            System.Diagnostics.Debug.Print("");
+            System.Diagnostics.Debug.Print("Generate Schedule");
+            System.Diagnostics.Debug.Print("Days List: " + days.Count);
+            System.Diagnostics.Debug.Print("Auto List: " + autoEvents.Count);
+            System.Diagnostics.Debug.Print("Manual List: " + manualEvents.Count);
+
+            for (int i = 0; i < days.Count; i++)
+                days[i].DebugPrintEvents();
+
+            System.Diagnostics.Debug.Print("");
         }
 
              
@@ -55,8 +77,11 @@ namespace Digital_Planner
         }
 
 
-        private static void SaveDataToDatabase() { 
-}
+        private static void SaveDataToDatabase() {
+
+
+            db.SaveChanges();
+        }
 
 
         private static void SortEvents()
