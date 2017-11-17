@@ -107,10 +107,10 @@ namespace Digital_Planner.Controllers
             if (id != null)
             {
                 var evt = db.Events.Where(e => e.ID == id);
-                //Shouldn't have a case like this, but just in case...
-                if (evt.Count() == 1)
+                //Shouldn't be more than one, but just to make sure....
+                foreach(var item in evt)
                 {
-                    evt.First().IsComplete = !evt.First().IsComplete;
+                    item.IsComplete = !item.IsComplete;
                     db.SaveChanges();
                 }
             }
