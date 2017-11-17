@@ -98,6 +98,38 @@ namespace Digital_Planner.Controllers
             return View(@event);
         }
 
+        // POST: Events/5
+        // Changes the attribute of an event to the specified value
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ToggleCompletion(int? id)//[Bind(Include = "ID,Title,OccursAt,Duration,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
+        {
+            if (id != null)
+            {
+                var evt = db.Events.Where(e => e.ID == id);
+                //Shouldn't have a case like this, but just in case...
+                if (evt.Count() == 1)
+                {
+                    evt.First().IsComplete = !evt.First().IsComplete;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
+            /*
+            if (ModelState.IsValid)
+            {
+                //db.Entry(@event).State = EntityState.Modified;
+                db.Entry(@event).Entity.IsComplete = !db.Entry(@event).Entity.IsComplete;
+                db.SaveChanges();
+                //Response.Redirect(Request.UrlReferrer.ToString());
+                return RedirectToAction("Index");
+            }
+            //ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Description", @event.CategoryID);
+            //ViewBag.UserID = new SelectList(db.Users, "ID", "FirstName", @event.UserID);
+            return View(@event);
+            */
+        }
+
         // GET: Events/Delete/5
         public ActionResult Delete(int? id)
         {
