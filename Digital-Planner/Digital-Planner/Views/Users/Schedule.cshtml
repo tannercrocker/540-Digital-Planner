@@ -5,23 +5,41 @@
     var model_events = Model.Events;
 }
 <script type="text/javascript">
-    function toggle_schedule(showID) {
-        if (showID != null) {
-            document.getElementById("day").style.display = 'none'
-            document.getElementById("week").style.display = 'none'
-            document.getElementById("month").style.display = 'none'
-            if ("month_button".match(showID)) {
-                document.getElementById("month").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Events for @DateTime.Today.ToString("MMMM") @DateTime.Today.Year'
-            } else if ("week_button".match(showID)) {
-                document.getElementById("week").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Events for the next week'
-            } else {
-                document.getElementById("day").style.display = 'block'
-                document.getElementById("schedule_text").innerHTML = 'Events for today'
-            }
+    $(document).ready(function () {
+        $('#day_button').click(function () {
+            $(this).addClass('btn-primary');
+            $('#week_button').removeClass('btn-primary');
+            $('#month_button').removeClass('btn-primary');
+            $('#day').display = 'block';
+            $('#week').display = 'none';
+            $('#month').display = 'none';
+            $('schedule_text').innerHTML = 'Events for today';
+
         }
-    }
+
+
+        $('#week_button').click(function () {
+            $(this).addClass('btn-primary');
+            $('#day_button').removeClass('btn-primary');
+            $('#month_button').removeClass('btn-primary');
+            $('#week').display = 'block';
+            $('#day').display = 'none';
+            $('#month').display = 'none';
+            $('schedule_text').innerHTML = 'Events for the next week';
+
+        }
+
+
+        $('#month_button').click(function () {
+            $(this).addClass('btn-primary');
+            $('#day_button').removeClass('btn-primary');
+            $('#week_button').removeClass('btn-primary');
+            $('#month').style.display = 'block';
+            $('#day').style.display = 'none';
+            $('#week').style.display = 'none';
+            $('schedule_text').innerHTML = 'Events for @DateTime.Today.ToString("MMMM") @DateTime.Today.Year';
+        }
+    });
 </script>
 
 <h2 id="schedule_text">Events for today</h2>
@@ -29,16 +47,15 @@
 
 <div class="row">
     <center>
-        <button id="day_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Today</button>
-        <button id="week_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Week</button>
-        <button id="month_button" class="btn" onclick="toggle_schedule(this.id)" style="margin-right: 1%;">Month</button>
+        <button id="day_button" class="btn" style="margin-right: 1%;">Today</button>
+        <button id="week_button" class="btn" style="margin-right: 1%;">Week</button>
+        <button id="month_button" class="btn" style="margin-right: 1%;">Month</button>
     </center>
 </div>
 
 <div id="schedule" class="row" style="margin-top:1%">
     
     @{
-        //Add year to where
         var evts = model_events
             .Where(e => e.OccursAt.DayOfYear.Equals(DateTime.Today.DayOfYear) && e.OccursAt.Year.Equals(DateTime.Today.Year))
             .GroupBy(e => e.CategoryID);
