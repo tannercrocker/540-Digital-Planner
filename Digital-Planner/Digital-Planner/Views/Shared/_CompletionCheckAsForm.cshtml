@@ -1,0 +1,64 @@
+﻿@model Digital_Planner.Models.Event
+
+
+@using (Html.BeginRouteForm(new { action = "ToggleCompletion", controller = "Events", id = Model.ID }))
+{
+    @Html.AntiForgeryToken()
+
+    var index = Model.ID;
+    var use_class = "";
+    var initial_value = "";
+
+    if (Model.IsComplete)
+    {
+        use_class = "glyphicon-check text-success btn-success";
+        //Set to the opposite value initially
+        initial_value = "0";
+    }
+    else
+    {
+        use_class = "glyphicon-unchecked text-danger btn-danger";
+        //Set to the opposite value initially
+        initial_value = "1";
+    }
+
+        <!--
+        <script type="text/javascript">
+    $(document).ready(function () {
+        $('.iscomplete-picker-@index').unbind('click').click(function () {
+            var input = $(this).find('input');
+
+            //Change the value
+            if ($(input).data('value') === '1') {
+                $(input).data('value', '0');
+            } else {
+                $(input).data('value', '1');
+            }
+
+            //Remove class from span
+            $(this).removeClass('glyphicon-check')
+            $(this).removeClass('text-success')
+            $(this).removeClass('btn-success')
+            $(this).removeClass('glyphicon-unchecked')
+            $(this).removeClass('text-danger')
+            $(this).removeClass('btn-danger')
+
+            //Update class for span
+            if ($(input).data('value') === '1') {
+                $(this).addClass('glyphicon-check')
+                $(this).addClass('text-success')
+                $(this).addClass('btn-success')
+            } else {
+                $(this).addClass('glyphicon-unchecked')
+                $(this).addClass('text-danger')
+                $(this).addClass('btn-danger')
+            }
+        });
+    });
+        </script>-->
+
+
+        <span class="iscomplete-picker-@index btn glyphicon @use_class">
+            <input type="submit"  value="@initial_value" />
+        </span>
+}
