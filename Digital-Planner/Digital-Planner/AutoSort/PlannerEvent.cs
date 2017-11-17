@@ -10,154 +10,150 @@ using System;
 
 namespace Digital_Planner
 {
-    namespace Sorting_Prototype
+    class PlannerEvent
     {
+        private String title;
 
-        class PlannerEvent
+        private int priority;
+        private System.TimeSpan duration;
+        private DateTime completeBy;
+        private float score;
+        private bool autoAssign = true;
+        private DateTime occursAt;
+
+
+        public PlannerEvent(String name, int priority, System.TimeSpan completionHours, DateTime dueDate)
         {
-            private String name;
+            //  Constructor for auto events
 
-            private int priority;
-            private float completionHours;
-            private DateTime dueDate;
-            private float score;
-            private bool autoAssign = true;
-            private DateTime assignedDay;
+            this.title = name;
+            this.priority = priority;
+            this.duration = completionHours;
+            this.completeBy = dueDate;
 
-
-            public PlannerEvent(String name, int priority, float completionHours, DateTime dueDate)
-            {
-                //  Constructor for auto events
-
-                this.name = name;
-                this.priority = priority;
-                this.completionHours = completionHours;
-                this.dueDate = dueDate;
-
-                GenerateScore();
-            }
-
-
-            public PlannerEvent(String name, int priority, float completionHours, DateTime dueDate, DateTime assignedDay)
-            {
-                //  Constructor for manual events
-
-                this.name = name;
-                this.priority = priority;
-                this.completionHours = completionHours;
-                this.dueDate = dueDate;
-                this.assignedDay = assignedDay;
-                autoAssign = false;
-
-                GenerateScore();
-            }
-
-
-            private void GenerateScore()
-            {
-                //  Generates the event's score
-
-                float daysUntilDue = (float)(dueDate - DateTime.Now).TotalDays;
-
-                score = 0;
-                score += (int)priority * PlannerSettings.PRIORITY_WEIGHT;
-                score += completionHours * PlannerSettings.HOURS_WEIGHT;
-                score -= daysUntilDue * PlannerSettings.DUE_DATE_WEIGHT;
-            }
-
-
-            public String Name
-            {
-                get
-                {
-                    return name;
-                }
-                set
-                {
-                    name = value;
-                    GenerateScore();
-                }
-            }
-
-
-            public int PriorityLevel
-            {
-                get
-                {
-                    return priority;
-                }
-                set
-                {
-                    priority = value;
-                    GenerateScore();
-                }
-            }
-
-
-            public float Hours
-            {
-                get
-                {
-                    return completionHours;
-                }
-                set
-                {
-                    completionHours = value;
-                    GenerateScore();
-                }
-            }
-
-
-            public DateTime DueDate
-            {
-                get
-                {
-                    return dueDate;
-                }
-                set
-                {
-                    dueDate = value;
-                    GenerateScore();
-                }
-            }
-
-
-            public float Score
-            {
-                get
-                {
-                    return score;
-                }
-            }
-
-
-            public DateTime AssignedDay
-            {
-                get
-                {
-                    return assignedDay;
-                }
-                set
-                {
-                    assignedDay = value;
-                }
-            }
-
-
-            public bool AutoAssign
-            {
-                get
-                {
-                    return autoAssign;
-                }
-            }
-
-
-            public void DebugPrint()
-            {
-                System.Diagnostics.Debug.WriteLine(name + ":    hours: " + completionHours + "   Score: " + score + "   priority: " + priority + "   Due Date: " + dueDate);
-            }
-
+            GenerateScore();
         }
+
+
+        public PlannerEvent(String name, int priority, System.TimeSpan completionHours, DateTime dueDate, DateTime assignedDay)
+        {
+            //  Constructor for manual events
+
+            this.title = name;
+            this.priority = priority;
+            this.duration = completionHours;
+            this.completeBy = dueDate;
+            this.occursAt = assignedDay;
+            autoAssign = false;
+
+            GenerateScore();
+        }
+
+
+        private void GenerateScore()
+        {
+            //  Generates the event's score
+
+            float daysUntilDue = (float)(completeBy - DateTime.Now).TotalDays;
+
+            score = 0;
+            score += (int)priority * PlannerSettings.PRIORITY_WEIGHT;
+            score += duration.Minutes * PlannerSettings.HOURS_WEIGHT / 60;
+            score -= daysUntilDue * PlannerSettings.DUE_DATE_WEIGHT;
+        }
+
+
+        public String Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                title = value;
+                GenerateScore();
+            }
+        }
+
+
+        public int PriorityLevel
+        {
+            get
+            {
+                return priority;
+            }
+            set
+            {
+                priority = value;
+                GenerateScore();
+            }
+        }
+
+
+        public System.TimeSpan Duration
+        {
+            get
+            {
+                return duration;
+            }
+            set
+            {
+                duration = value;
+                GenerateScore();
+            }
+        }
+
+
+        public DateTime CompleteBy
+        {
+            get
+            {
+                return completeBy;
+            }
+            set
+            {
+                completeBy = value;
+                GenerateScore();
+            }
+        }
+
+
+        public float Score
+        {
+            get
+            {
+                return score;
+            }
+        }
+
+
+        public DateTime OccursAt
+        {
+            get
+            {
+                return occursAt;
+            }
+            set
+            {
+                occursAt = value;
+            }
+        }
+
+
+        public bool AutoAssign
+        {
+            get
+            {
+                return autoAssign;
+            }
+        }
+
+
+        public void DebugPrint()
+        {
+            System.Diagnostics.Debug.WriteLine(title + ":    hours: " + duration + "   Score: " + score + "   priority: " + priority + "   Due Date: " + completeBy);
+        }
+
     }
 }

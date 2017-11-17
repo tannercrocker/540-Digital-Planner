@@ -7,13 +7,10 @@
 
 namespace Digital_Planner
 {
-    namespace Sorting_Prototype
+    class PlannerSettings
     {
-        class PlannerSettings
-        {
-            public const float PRIORITY_WEIGHT = 1;
-            public const float HOURS_WEIGHT = 1;
-            public const float DUE_DATE_WEIGHT = 1;
-        }
+        public const float PRIORITY_WEIGHT = 1;
+        public const float HOURS_WEIGHT = 1;
+        public const float DUE_DATE_WEIGHT = 1;
     }
 }

@@ -13,86 +13,83 @@ using System.Threading.Tasks;
 
 namespace Digital_Planner
 {
-    namespace Sorting_Prototype
+    class PlannerDay
     {
-        class PlannerDay
+
+        //name should be changed to a reference to the Day in the Database
+
+        private DateTime date;
+        private System.TimeSpan minutesAvaialable;
+        private float remainingWorkMinutes;
+
+        private List<PlannerEvent> events = new List<PlannerEvent>();
+
+        public PlannerDay(DateTime date, System.TimeSpan totalWorkHours)
         {
-
-            //name should be changed to a reference to the Day in the Database
-
-            private DateTime date;
-            private float totalWorkHours;
-            private float remainingWorkHours;
-
-            private List<PlannerEvent> events = new List<PlannerEvent>();
-
-            public PlannerDay(DateTime date, float totalWorkHours)
-            {
-                this.totalWorkHours = totalWorkHours;
-                this.date = date;
-                remainingWorkHours = totalWorkHours;
-            }
+            this.minutesAvaialable = totalWorkHours;
+            this.date = date;
+            remainingWorkMinutes = totalWorkHours.Minutes;
+        }
 
 
-            public bool AddAutoEvent(PlannerEvent newEvent)
-            {
-                if (remainingWorkHours >= newEvent.Hours)
-                {
-                    events.Add(newEvent);
-                    remainingWorkHours -= newEvent.Hours;
-                    return true;
-                }
-
-                return false;
-            }
-
-
-            public void AssignDays()
-            {
-                //  Loops through all events in list and sets their assigned day to this day
-
-                for (int i = 0; i < events.Count; i++)
-                    events[i].AssignedDay = date;
-            }
-
-
-            public void AddManualEvent(PlannerEvent newEvent)
+        public bool AddAutoEvent(PlannerEvent newEvent)
+        {
+            if (remainingWorkMinutes >= newEvent.Duration.Minutes)
             {
                 events.Add(newEvent);
-                remainingWorkHours -= newEvent.Hours;
+                remainingWorkMinutes -= newEvent.Duration.Minutes;
+                return true;
             }
 
-
-            public float RemainingWorkHours
-            {
-                get
-                {
-                    return remainingWorkHours;
-                }
-            }
-
-
-            public DateTime Date
-            {
-                get
-                {
-                    return date;
-                }
-            }
-
-
-            public void DebugPrintEvents()
-            {
-                System.Diagnostics.Debug.WriteLine(date + ": " + totalWorkHours + " hours");
-                System.Diagnostics.Debug.WriteLine("------------");
-                for (int i = 0; i < events.Count; i++)
-                {
-                    events[i].DebugPrint();
-                }
-                System.Diagnostics.Debug.WriteLine("");
-            }
-
-
+            return false;
         }
+
+
+        public void AssignDays()
+        {
+            //  Loops through all events in list and sets their assigned day to this day
+
+            for (int i = 0; i < events.Count; i++)
+                events[i].OccursAt = date;
+        }
+
+
+        public void AddManualEvent(PlannerEvent newEvent)
+        {
+            events.Add(newEvent);
+            remainingWorkMinutes -= newEvent.Duration.Minutes;
+        }
+
+
+        public float RemainingWorkHours
+        {
+            get
+            {
+                return remainingWorkMinutes;
+            }
+        }
+
+
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+        }
+
+
+        public void DebugPrintEvents()
+        {
+            System.Diagnostics.Debug.WriteLine(date + ": " + minutesAvaialable + " hours");
+            System.Diagnostics.Debug.WriteLine("------------");
+            for (int i = 0; i < events.Count; i++)
+            {
+                events[i].DebugPrint();
+            }
+            System.Diagnostics.Debug.WriteLine("");
+        }
+
+
     }
 }
