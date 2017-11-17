@@ -22,43 +22,8 @@
         initial_value = "1";
     }
 
-        <!--
-        <script type="text/javascript">
-    $(document).ready(function () {
-        $('.iscomplete-picker-@index').unbind('click').click(function () {
-            var input = $(this).find('input');
-
-            //Change the value
-            if ($(input).data('value') === '1') {
-                $(input).data('value', '0');
-            } else {
-                $(input).data('value', '1');
-            }
-
-            //Remove class from span
-            $(this).removeClass('glyphicon-check')
-            $(this).removeClass('text-success')
-            $(this).removeClass('btn-success')
-            $(this).removeClass('glyphicon-unchecked')
-            $(this).removeClass('text-danger')
-            $(this).removeClass('btn-danger')
-
-            //Update class for span
-            if ($(input).data('value') === '1') {
-                $(this).addClass('glyphicon-check')
-                $(this).addClass('text-success')
-                $(this).addClass('btn-success')
-            } else {
-                $(this).addClass('glyphicon-unchecked')
-                $(this).addClass('text-danger')
-                $(this).addClass('btn-danger')
-            }
-        });
-    });
-        </script>-->
-
-
-        <span class="iscomplete-picker-@index btn glyphicon @use_class">
-            <input type="submit"  value="@initial_value" />
-        </span>
+    <!-- Script isn't needed here - This changes the page b/c of the POST. -->
+    <button type="submit" class="iscomplete-picker-@index btn btn-sm glyphicon @use_class">
+        <!--<input type="submit"  value="@initial_value" />-->
+    </button>
 }
