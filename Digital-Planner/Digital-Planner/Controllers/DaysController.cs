@@ -71,7 +71,7 @@ namespace Digital_Planner.Controllers
                     re_day.HoursAvailable = day.HoursAvailable;
                     re_day.UserID = day.UserID;
 
-                    db.Days.Add(day);
+                    db.Days.Add(re_day);
                     db.SaveChanges();
 
                     recurrence--;
