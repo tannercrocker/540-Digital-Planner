@@ -50,6 +50,7 @@ namespace Digital_Planner.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,HoursAvailable,Date,UserID")] Day day)
         {
+
             if (ModelState.IsValid)
             {
                 db.Days.Add(day);
