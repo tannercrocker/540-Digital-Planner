@@ -48,7 +48,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HoursAvailable,Date,UserID")] Day day, int reocurrance)
+        public ActionResult Create([Bind(Include = "ID,HoursAvailable,Date,UserID")] Day day, int recurrence)
         {
 
             if (ModelState.IsValid)
@@ -57,12 +57,12 @@ namespace Digital_Planner.Controllers
                 db.SaveChanges();
                 
                 //Keep those rascals under control!
-                if(reocurrance > 24)
+                if(recurrence > 24)
                 {
-                    reocurrance = 24;
+                    recurrence = 24;
                 }
                 var day_to_use = day.Date;
-                while(reocurrance > 0)
+                while(recurrence > 0)
                 {
                     var re_day = new Day();
                     day_to_use = day_to_use.AddDays(7);
@@ -74,7 +74,7 @@ namespace Digital_Planner.Controllers
                     db.Days.Add(day);
                     db.SaveChanges();
 
-                    reocurrance--;
+                    recurrence--;
                 }
 
                 return RedirectToAction("Index");
