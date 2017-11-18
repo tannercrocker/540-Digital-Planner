@@ -48,7 +48,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HoursAvailable,WorkStarts,UserID,Date")] Day day)
+        public ActionResult Create([Bind(Include = "ID,HoursAvailable,Date,UserID")] Day day)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HoursAvailable,WorkStarts,UserID,Date")] Day day)
+        public ActionResult Edit([Bind(Include = "ID,HoursAvailable,Date,UserID")] Day day)
         {
             if (ModelState.IsValid)
             {

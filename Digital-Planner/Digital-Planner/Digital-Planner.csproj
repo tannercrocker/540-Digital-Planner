@@ -285,11 +285,6 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Days\Create.cshtml" />
-    <Content Include="Views\Days\Delete.cshtml" />
-    <Content Include="Views\Days\Details.cshtml" />
-    <Content Include="Views\Days\Edit.cshtml" />
-    <Content Include="Views\Days\Index.cshtml" />
     <Content Include="Views\Users\Schedule.cshtml" />
     <Content Include="Views\Users\_Category.cshtml" />
     <Content Include="Views\Users\_Event.cshtml" />
@@ -312,6 +307,11 @@
     <Content Include="Views\Shared\EditorTemplates\PriorityButtons.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CompletionCheck.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AutomaticAssign.cshtml" />
+    <Content Include="Views\Days\Create.cshtml" />
+    <Content Include="Views\Days\Delete.cshtml" />
+    <Content Include="Views\Days\Details.cshtml" />
+    <Content Include="Views\Days\Edit.cshtml" />
+    <Content Include="Views\Days\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

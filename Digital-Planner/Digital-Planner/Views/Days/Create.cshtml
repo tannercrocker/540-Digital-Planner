@@ -6,7 +6,6 @@
 
 <h2>Create</h2>
 
-@* User is available for work on [Date], starting at [Time], for [Time]  & Should repeat for [x] weeks *@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -24,23 +23,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WorkStarts, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WorkStarts, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WorkStarts, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @* TODO - Swap out for [current_user] *@
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
@@ -48,7 +30,13 @@
             </div>
         </div>
 
-        @* TODO - Add field for the number of re-occurrences *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -59,10 +47,5 @@
 }
 
 <div>
-    @Html.Partial("_PreviousPageHyperlink")
-    @* @Html.ActionLink("Back to List", "Index") *@
+    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

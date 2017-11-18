@@ -15,9 +15,6 @@
             @Html.DisplayNameFor(model => model.HoursAvailable)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WorkStarts)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
@@ -32,16 +29,15 @@
             @Html.DisplayFor(modelItem => item.HoursAvailable)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WorkStarts)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.FirstName)
         </td>
         <td>
-            @Html.Partial("_Edit-Detail-Delete_Buttons", new Tuple<System.Web.Mvc.ControllerBase, int>(ViewContext.Controller, item.ID))
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

@@ -20,14 +20,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WorkStarts)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorkStarts)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Date)
         </dt>
 
@@ -50,8 +42,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.Partial("_PreviousPageHyperlink")
-            @* @Html.ActionLink("Back to List", "Index") *@
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>
