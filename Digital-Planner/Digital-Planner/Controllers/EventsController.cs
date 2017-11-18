@@ -49,12 +49,41 @@ namespace Digital_Planner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,OccursAt,Duration,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event)
+        public ActionResult Create([Bind(Include = "ID,Title,OccursAt,Duration,Priority,CompleteBy,IsComplete,Location,UserID,CategoryID")] Event @event, int recurrence)
         {
             if (ModelState.IsValid)
             {
                 db.Events.Add(@event);
                 db.SaveChanges();
+
+                if (recurrence > 24)
+                {
+                    recurrence = 24;
+                }
+                var Occurs = @event.OccursAt;
+                var Complete = @event.CompleteBy;
+                while (recurrence > 0)
+                {
+                    var re_event = new Event();
+                    Occurs = Occurs.AddDays(7);
+                    Complete = Complete.AddDays(7);
+
+                    re_event.OccursAt = Occurs;
+                    re_event.CompleteBy = Complete;
+                    re_event.IsComplete = @event.IsComplete;
+                    re_event.Priority = @event.Priority;
+                    re_event.Title = @event.Title;
+                    re_event.UserID = @event.UserID;
+                    re_event.CategoryID = @event.CategoryID;
+                    re_event.Location = @event.Location;
+                    re_event.AutoAssign = @event.AutoAssign;
+                    re_event.Duration = @event.Duration;
+                 
+                    db.Events.Add(re_event);
+                    db.SaveChanges();
+
+                    recurrence--;
+                }
                 return RedirectToAction("Index");
             }
 
