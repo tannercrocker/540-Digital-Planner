@@ -22,11 +22,19 @@
             </div>
         </div>
 
+        @{ ViewBag.picker_Index = 1;}
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="contrl-label col-md-2" for="Reoccurance">Reoccurance</label>
+            <div class="col-md-10">
+                Occurs once a week for <input class ="text-center" type= "number" min="0" max="24" value="0"/> weeks
             </div>
         </div>
 
