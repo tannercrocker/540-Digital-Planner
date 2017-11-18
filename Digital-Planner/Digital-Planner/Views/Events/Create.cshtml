@@ -4,7 +4,23 @@
     ViewBag.Title = "Create";
     ViewBag.picker_index = 0;
 }
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form').on('submit', function () {
+            //Set the recurrences
+            $(this).attr('action', $(this).attr('action') + $('#recurrence_counter').val());
+        })
+        $('#recurrence_counter').change(function () {
+            //Ensure min/max
+            if ($(this).val() > 24) {
+                $(this).val("24");
+            }
+            if ($(this).val() < 0) {
+                $(this).val("0");
+            }
+        });
+    });
+</script>
 <h2>Create</h2>
 
 @using (Html.BeginForm()) 
@@ -107,9 +123,9 @@
         </div>
 
         <div class="form-group">
-            <label class="contrl-label col-md-2" for="Reoccurance">Reoccurance</label>
+            <label class="contrl-label col-md-2">Recurrence</label>
             <div class="col-md-10">
-                Occurs once a week for <input class="text-center" type="number" min="0" max="24" value="0" /> weeks
+                Occurs once a week for <input id ="recurrence_counter" class="text-center" type="number" min="0" max="24" value="0" /> weeks
             </div>
         </div>
 

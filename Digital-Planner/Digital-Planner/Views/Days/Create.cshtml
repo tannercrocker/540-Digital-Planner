@@ -6,10 +6,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('form').on('submit', function () {
-            //Set the reoccurances
-            $(this).attr('action', $(this).attr('action') + $('#reoccurence_counter').val());
+            //Set the recurrences
+            $(this).attr('action', $(this).attr('action') + $('#recurrence_counter').val());
         })
-        $('#reoccurence_counter').change(function () {
+        $('#recurrence_counter').change(function () {
             //Ensure min/max
             if ($(this).val() > 24) {
                 $(this).val("24");
@@ -49,9 +49,9 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">Reoccurance</label>
+            <label class="control-label col-md-2">Recurrence</label>
             <div class="col-md-10">
-                Occurs once a week for <input id="reoccurence_counter" type="number" min="0" max="24" value="0" class="text-center"/> weeks.
+                Occurs once a week for <input id="recurrence_counter" type="number" min="0" max="24" value="0" class="text-center"/> weeks.
             </div>
         </div>
 
