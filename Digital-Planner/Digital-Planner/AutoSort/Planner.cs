@@ -21,6 +21,7 @@ namespace Digital_Planner
         //TODO:  Pass in user id
         public static void GenerateSchedule()
         {
+            System.Diagnostics.Debug.Print("Generate Schedule");
             List<PlannerEvent> autoEvents = new List<PlannerEvent>();
             List<PlannerEvent> manualEvents = new List<PlannerEvent>();
             List<PlannerDay> days = new List<PlannerDay>();
@@ -34,8 +35,9 @@ namespace Digital_Planner
 
         private static void DebugPrint(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
+            System.Diagnostics.Debug.Print("Print Schedule");
+
             System.Diagnostics.Debug.Print("");
-            System.Diagnostics.Debug.Print("Generate Schedule");
             System.Diagnostics.Debug.Print("Days List: " + days.Count);
             System.Diagnostics.Debug.Print("Auto List: " + autoEvents.Count);
             System.Diagnostics.Debug.Print("Manual List: " + manualEvents.Count);
@@ -50,6 +52,8 @@ namespace Digital_Planner
         private static void GetDataFromDatabase(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
             //  Gets the information from the database and populates the lists
+
+            System.Diagnostics.Debug.Print("Get Data From Database");
 
             //Get database records
             List<Models.Event> plannerEvents = db.Events.ToList();
@@ -80,6 +84,8 @@ namespace Digital_Planner
         {
             //  Sorts automatic events based on event score
 
+            System.Diagnostics.Debug.Print("Sort Events");
+
             List<PlannerEvent> temp = new List<PlannerEvent>();
 
             //set temp equal to autoEvents
@@ -102,6 +108,7 @@ namespace Digital_Planner
 
         private static void AssignWorkDays(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
+            System.Diagnostics.Debug.Print("Assign Work Days");
 
             //assign manual events
             for (int i = 0; i < manualEvents.Count; i++)
@@ -114,7 +121,7 @@ namespace Digital_Planner
 
             //start at the first day and keep adding events until no events fit
             //then move to next day.  Repeat until all events have been assigned
-            while (autoEvents.Count > 0)
+            while (dayIndex < days.Count && autoEvents.Count > 0)
             {
                 if (days.Count > 0 && days[dayIndex].RemainingWorkHours >= autoEvents[eventIndex].Duration.Minutes)
                 {
