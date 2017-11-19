@@ -17,30 +17,22 @@ namespace Digital_Planner
     static class Planner
     {
         private static Digital_Planner.Models.calendarEntities db = new Digital_Planner.Models.calendarEntities();
-        private static List<PlannerEvent> autoEvents;
-        private static List<PlannerEvent> manualEvents;
-        private static List<PlannerDay> days;
 
+        //TODO:  Pass in user id
         public static void GenerateSchedule()
         {
-            Reset();
-            GetDataFromDatabase();
-            //SortEvents();
-            //AssignWorkDays();
-            DebugPrint();
-            SaveDataToDatabase();
+            List<PlannerEvent> autoEvents = new List<PlannerEvent>();
+            List<PlannerEvent> manualEvents = new List<PlannerEvent>();
+            List<PlannerDay> days = new List<PlannerDay>();
+
+            GetDataFromDatabase(autoEvents, manualEvents, days);
+            SortEvents(autoEvents, manualEvents, days);
+            AssignWorkDays(autoEvents, manualEvents, days);
+            DebugPrint(autoEvents, manualEvents, days);
+            //SaveDataToDatabase();
         }
 
-
-        private static void Reset()
-        {
-            autoEvents = new List<PlannerEvent>();
-            manualEvents = new List<PlannerEvent>();
-            days = new List<PlannerDay>();
-        }
-
-
-        private static void DebugPrint()
+        private static void DebugPrint(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
             System.Diagnostics.Debug.Print("");
             System.Diagnostics.Debug.Print("Generate Schedule");
@@ -55,7 +47,7 @@ namespace Digital_Planner
         }
 
              
-        private static void GetDataFromDatabase()
+        private static void GetDataFromDatabase(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
             //  Gets the information from the database and populates the lists
 
@@ -67,9 +59,9 @@ namespace Digital_Planner
             for (int i = 0; i < plannerEvents.Count; i++)
             {
                 if (plannerEvents[i].AutoAssign)
-                    AddEvent(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy));
+                    autoEvents.Add(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy));
                 else
-                    AddEvent(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy, plannerEvents[i].OccursAt));
+                    manualEvents.Add(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy, plannerEvents[i].OccursAt));
             }
 
             for (int i = 0; i < plannerDays.Count; i++)
@@ -84,7 +76,7 @@ namespace Digital_Planner
         }
 
 
-        private static void SortEvents()
+        private static void SortEvents(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
             //  Sorts automatic events based on event score
 
@@ -108,7 +100,7 @@ namespace Digital_Planner
         }
 
 
-        private static void AssignWorkDays()
+        private static void AssignWorkDays(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
         {
 
             //assign manual events
@@ -124,7 +116,7 @@ namespace Digital_Planner
             //then move to next day.  Repeat until all events have been assigned
             while (autoEvents.Count > 0)
             {
-                if (days[dayIndex].RemainingWorkHours >= autoEvents[eventIndex].Duration.Minutes)
+                if (days.Count > 0 && days[dayIndex].RemainingWorkHours >= autoEvents[eventIndex].Duration.Minutes)
                 {
                     days[dayIndex].AddAutoEvent(autoEvents[eventIndex]);
                     autoEvents.RemoveAt(eventIndex);
@@ -147,40 +139,6 @@ namespace Digital_Planner
                 days[i].AssignDays();
             }
         }
-
-
-        private static void AddEvent(PlannerEvent newAssignment)
-        {
-            //  Add a new assignment to the Planner
-
-            if (newAssignment.AutoAssign)
-                autoEvents.Add(newAssignment);
-            else
-            {
-                manualEvents.Add(newAssignment);
-            }
-
-        }
-
-
-        private static void AddDay(PlannerDay newDay)
-        {
-            //  Add a new day to the Planner
-
-            days.Add(newDay);
-        }
-
-
-        private static void DebugPrintAssignments()
-        {
-            //  Print output to debug Console
-
-            for (int i = 0; i < days.Count; i++)
-            {
-                days[i].DebugPrintEvents();
-            }
-        }
-
 
     }
 }
