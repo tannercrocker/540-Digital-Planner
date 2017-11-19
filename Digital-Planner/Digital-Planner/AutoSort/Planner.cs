@@ -1,7 +1,7 @@
 /*
 *   File:           Planner.cs
 *   Author:         Benjamin Albrecht 
-*   Date:           11/16/2017
+*   Date:           11/19/2017
 *   Description:    Planner stores a list of days, auto events, and manual events.
 *                   Automatically sorts and assigns events when GenerateSchedule() is called.
 */
@@ -30,7 +30,7 @@ namespace Digital_Planner
             SortEvents(autoEvents, manualEvents, days);
             AssignWorkDays(autoEvents, manualEvents, days);
             DebugPrint(autoEvents, manualEvents, days);
-            //SaveDataToDatabase();
+            db.SaveChanges();
         }
 
         private static void DebugPrint(List<PlannerEvent> autoEvents, List<PlannerEvent> manualEvents, List<PlannerDay> days)
@@ -42,8 +42,10 @@ namespace Digital_Planner
             System.Diagnostics.Debug.Print("Auto List: " + autoEvents.Count);
             System.Diagnostics.Debug.Print("Manual List: " + manualEvents.Count);
 
+            /*
             for (int i = 0; i < days.Count; i++)
                 days[i].DebugPrintEvents();
+                */
 
             System.Diagnostics.Debug.Print("");
         }
@@ -63,20 +65,13 @@ namespace Digital_Planner
             for (int i = 0; i < plannerEvents.Count; i++)
             {
                 if (plannerEvents[i].AutoAssign)
-                    autoEvents.Add(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy));
+                    autoEvents.Add(new PlannerEvent(plannerEvents[i]));
                 else
-                    manualEvents.Add(new PlannerEvent(plannerEvents[i].Title, plannerEvents[i].Priority, plannerEvents[i].Duration, plannerEvents[i].CompleteBy, plannerEvents[i].OccursAt));
+                    manualEvents.Add(new PlannerEvent(plannerEvents[i]));
             }
 
             for (int i = 0; i < plannerDays.Count; i++)
-                days.Add(new PlannerDay(plannerDays[i].Date, plannerDays[i].HoursAvailable));
-        }
-
-
-        private static void SaveDataToDatabase() {
-
-
-            db.SaveChanges();
+                days.Add(new PlannerDay(plannerDays[i]));
         }
 
 
@@ -110,12 +105,6 @@ namespace Digital_Planner
         {
             System.Diagnostics.Debug.Print("Assign Work Days");
 
-            //assign manual events
-            for (int i = 0; i < manualEvents.Count; i++)
-                for (int j = 0; j < days.Count; j++)
-                    if (days[j].Date == manualEvents[i].OccursAt)
-                        days[j].AddManualEvent(manualEvents[i]);
-
             int dayIndex = 0;
             int eventIndex = 0;
 
@@ -123,9 +112,10 @@ namespace Digital_Planner
             //then move to next day.  Repeat until all events have been assigned
             while (dayIndex < days.Count && autoEvents.Count > 0)
             {
-                if (days.Count > 0 && days[dayIndex].RemainingWorkHours >= autoEvents[eventIndex].Duration.Minutes)
+                if (days.Count > 0 && days[dayIndex].RemainingWorkMinutes >= autoEvents[eventIndex].Duration.Minutes)
                 {
-                    days[dayIndex].AddAutoEvent(autoEvents[eventIndex]);
+                    days[dayIndex].RemainingWorkMinutes -= autoEvents[eventIndex].Duration.Minutes;
+                    autoEvents[eventIndex].OccursAt = days[dayIndex].Date;
                     autoEvents.RemoveAt(eventIndex);
                 }
                 else
@@ -138,12 +128,6 @@ namespace Digital_Planner
                     }
 
                 }
-            }
-
-            //Set the assignment day for all events
-            for (int i = 0; i < days.Count; i++)
-            {
-                days[i].AssignDays();
             }
         }
 

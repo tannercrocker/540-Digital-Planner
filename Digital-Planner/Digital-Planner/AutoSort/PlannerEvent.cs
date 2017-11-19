@@ -1,8 +1,8 @@
 ﻿/*
 *   File:           Event.cs
 *   Author:         Benjamin Albrecht
-*   Date:           11/12/2017
-*   Description:    Stores information for Event objects
+*   Date:           11/19/2017
+*   Description:    Stores and modifies an Event from the database
 */
 
 
@@ -12,53 +12,30 @@ namespace Digital_Planner
 {
     class PlannerEvent
     {
-        private String title;
+        private static Digital_Planner.Models.calendarEntities db = new Digital_Planner.Models.calendarEntities();
 
-        private int priority;
-        private System.TimeSpan duration;
-        private DateTime completeBy;
+        Models.Event dbEvent;
         private float score;
-        private bool autoAssign = true;
-        private DateTime occursAt;
 
 
-        public PlannerEvent(String name, int priority, System.TimeSpan completionHours, DateTime dueDate)
+        public PlannerEvent(Models.Event dbEvent)
         {
-            //  Constructor for auto events
+            //  Constructor
 
-            this.title = name;
-            this.priority = priority;
-            this.duration = completionHours;
-            this.completeBy = dueDate;
+            this.dbEvent = dbEvent;
 
             GenerateScore();
         }
-
-
-        public PlannerEvent(String name, int priority, System.TimeSpan completionHours, DateTime dueDate, DateTime assignedDay)
-        {
-            //  Constructor for manual events
-
-            this.title = name;
-            this.priority = priority;
-            this.duration = completionHours;
-            this.completeBy = dueDate;
-            this.occursAt = assignedDay;
-            autoAssign = false;
-
-            GenerateScore();
-        }
-
 
         private void GenerateScore()
         {
             //  Generates the event's score
 
-            float daysUntilDue = (float)(completeBy - DateTime.Now).TotalDays;
+            float daysUntilDue = (float)(CompleteBy - DateTime.Now).TotalDays;
 
             score = 0;
-            score += (int)priority * PlannerSettings.PRIORITY_WEIGHT;
-            score += duration.Minutes * PlannerSettings.HOURS_WEIGHT / 60;
+            score += (int)PriorityLevel * PlannerSettings.PRIORITY_WEIGHT;
+            score += Duration.Minutes * PlannerSettings.HOURS_WEIGHT / 60;
             score -= daysUntilDue * PlannerSettings.DUE_DATE_WEIGHT;
         }
 
@@ -67,11 +44,11 @@ namespace Digital_Planner
         {
             get
             {
-                return title;
+                return dbEvent.Title;
             }
             set
             {
-                title = value;
+                dbEvent.Title = value;
                 GenerateScore();
             }
         }
@@ -81,11 +58,11 @@ namespace Digital_Planner
         {
             get
             {
-                return priority;
+                return dbEvent.Priority;
             }
             set
             {
-                priority = value;
+                dbEvent.Priority = value;
                 GenerateScore();
             }
         }
@@ -95,11 +72,11 @@ namespace Digital_Planner
         {
             get
             {
-                return duration;
+                return dbEvent.Duration;
             }
             set
             {
-                duration = value;
+                dbEvent.Duration = value;
                 GenerateScore();
             }
         }
@@ -109,11 +86,11 @@ namespace Digital_Planner
         {
             get
             {
-                return completeBy;
+                return dbEvent.CompleteBy;
             }
             set
             {
-                completeBy = value;
+                dbEvent.CompleteBy = value;
                 GenerateScore();
             }
         }
@@ -132,11 +109,12 @@ namespace Digital_Planner
         {
             get
             {
-                return occursAt;
+                return dbEvent.OccursAt;
             }
             set
             {
-                occursAt = value;
+                dbEvent.OccursAt = value;
+                GenerateScore();
             }
         }
 
@@ -145,14 +123,14 @@ namespace Digital_Planner
         {
             get
             {
-                return autoAssign;
+                return dbEvent.AutoAssign;
             }
         }
 
 
         public void DebugPrint()
         {
-            System.Diagnostics.Debug.WriteLine(title + ":    hours: " + duration + "   Score: " + score + "   priority: " + priority + "   Due Date: " + completeBy);
+            System.Diagnostics.Debug.WriteLine(Title + ":    hours: " + Duration + "   Score: " + Score + "   priority: " + PriorityLevel + "   Due Date: " + CompleteBy);
         }
 
     }
