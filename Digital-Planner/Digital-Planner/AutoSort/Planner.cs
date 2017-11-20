@@ -42,11 +42,6 @@ namespace Digital_Planner
             System.Diagnostics.Debug.Print("Auto List: " + autoEvents.Count);
             System.Diagnostics.Debug.Print("Manual List: " + manualEvents.Count);
 
-            /*
-            for (int i = 0; i < days.Count; i++)
-                days[i].DebugPrintEvents();
-                */
-
             System.Diagnostics.Debug.Print("");
         }
 
@@ -70,6 +65,7 @@ namespace Digital_Planner
                     manualEvents.Add(new PlannerEvent(plannerEvents[i]));
             }
 
+            System.Diagnostics.Debug.Print("PlannerDays Count: " + plannerDays.Count);
             for (int i = 0; i < plannerDays.Count; i++)
                 days.Add(new PlannerDay(plannerDays[i]));
         }
@@ -116,6 +112,7 @@ namespace Digital_Planner
                 {
                     days[dayIndex].RemainingWorkMinutes -= autoEvents[eventIndex].Duration.Minutes;
                     autoEvents[eventIndex].OccursAt = days[dayIndex].Date;
+                    System.Diagnostics.Debug.Print(autoEvents[eventIndex].Title + " assign to " + days[dayIndex].Date + " - new date: " + autoEvents[eventIndex].OccursAt);
                     autoEvents.RemoveAt(eventIndex);
                 }
                 else
