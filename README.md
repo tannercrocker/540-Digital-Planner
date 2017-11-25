@@ -1,6 +1,8 @@
 # Digital Planner
 Our semester project for CSCI 540-01: Software Engineering (Fall 2017).  
 
+***THIS REPOSITORY HAS MOVED TO [Digital-Planner-2](https://github.com/techset7set/540-Digital-Planner-2).***
+
 ## Description
 An online digital planner that automatically organizes a user's schedule. 
 
